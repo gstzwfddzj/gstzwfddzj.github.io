@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐播放器</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap&subset=latin-ext"
+        rel="stylesheet" />
+    <link rel="shortcut icon"
+        href="https://img0.baidu.com/it/u=2926715223,1445444764&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500"
+        type="image/x-icon">
+    <link rel="stylesheet" href="./index.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="up">
+            <div>
+                <div class="img">
+                </div>
+            </div>
+            <div class="control">
+                <i class="fa fa-heart"></i>
+
+                <i class="fa fa-share-square-o"></i>
+
+                <i class="fa fa-step-backward" id="up"></i>
+
+                <i class="fa fa-step-forward " id="next"></i>
+
+                <i class="fa fa-play-circle-o play"></i>
+
+                <i class="fa fa-pause-circle-o none stop"></i>
+
+            </div>
+        </div>
+        <div class="down">
+            <h1>晴天</h1>
+            <h2>周杰伦</h2>
+            <div>
+                <span>00:00</span><input type="range" value="0" max="600"><span>00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+          var data = [
+            {
+                id: 0,
+                name: '最伟大的作品',
+                author: '周杰伦',
+                img: './image/1.jpg',
+                mp3: './audio/最伟大的作品-周杰伦.mp3',
+                love: true
+            },
+            {
+                id: 2,
+                name: '青花瓷',
+                author: '周杰伦',
+                img: './image/2.jpg',
+                mp3: './audio/青花瓷-周杰伦.mp3',
+                love: false
+            },
+            {
+                id: 3,
+                name: '晴天',
+                author: '周杰伦',
+                img: './image/3.jpg',
+                mp3: './audio/晴天-周杰伦.mp3',
+                love: false
+            },
+        ]
+
+
+        function 转换时间(date) {
+            return (parseInt(+date / 60) < 10 ? '0' + parseInt(+date / 60) : parseInt(+date / 60)) + ':' + (parseInt(+date % 60) < 10 ? '0' + parseInt(date % 60) : parseInt(date % 60))
+        }
+        var audio, index = 0;
+
+        audio = document.createElement('audio')
+        $('body').append(audio)
+
+        function zuizhong() {
+            $('input').val(audio.currentTime)
+            $('.down span').eq(0).text(转换时间(audio.currentTime))
+        }
+        function add(num) {
+            $('.wrap .up .img:last-of-type').css({
+                'background-image': 'url(' + data[num].img + ')'
+            })
+            $(audio).css('display', 'none')
+            audio.src = data[num].mp3
+            audio.oncanplay = function () {
+                $('.down span').eq(1).text(转换时间(audio.duration))
+                $('input').attr('max', audio.duration)
+            }
+            audio.ontimeupdate = zuizhong
+            $('.play').click(function () {
+                audio.play()
+                $('.stop').removeClass('none')
+                $(this).addClass('none')
+            })
+            $('.stop').click(function () {
+                audio.pause()
+                $('.play').removeClass('none')
+                $(this).addClass('none')
+            })
+            $('.down h1').text(data[num].name)
+            $('.down h2').text(data[num].author)
+            if (data[num].love) {
+                $('.control>i').addClass('love')
+            } else {
+                $('.control>i').removeClass('love')
+            }
+
+        }
+
+        add(index)
+
+        $('#next').click(function (e) {
+            ++index === data.length ? index = 0 : index
+
+            $('.up >div:first-child>div').css({ animation: 'fangda .3s 1 forwards ease-in', position: 'absolute', top: 0 }).addClass('ii')
+            $('.up >div:first-child ').append('<div class="img ii" style="animation: hou .3s  1  ease-in">')
+            setTimeout(() => {
+                $('.up >div:first-child>div:first-child').remove()
+                $('.up >div:first-child>div').removeClass('ii')
+            }, 300)
+
+            add(index)
+            if ($('.play')[0].className.includes('none')) {
+                audio.play()
+            }
+
+        })
+        $('#up').click(function (e) {
+            --index === -1 ? index = data.length - 1 : index
+            $('.up >div:first-child>div').css({ animation: 'fangda .3s 1 forwards ease-in', position: 'absolute', top: 0 }).addClass('ii')
+            $('.up >div:first-child ').append('<div class="img ii" style="animation: hou .3s  1  linear">')
+            setTimeout(() => {
+                $('.up >div:first-child>div:first-child').remove()
+                $('.up >div:first-child>div').removeClass('ii')
+            }, 300)
+            add(index)
+            if ($('.play')[0].className.includes('none')) {
+                audio.play()
+            }
+        })
+
+
+        $('input')[0].onmousedown = function () {
+            audio.ontimeupdate = null
+            var _this = this
+            this.onmousemove = function (e) {
+                $('.down span').eq(0).text(转换时间(_this.value))
+            }
+        }
+        $('input')[0].onmouseup = function (e) {
+            audio.ontimeupdate = zuizhong
+            audio.currentTime = $(this).val()
+            this.onmousemove = null
+        }
+
+        $('.control >i:first-child').click(function (e) {
+            data[index].love = !data[index].love
+            $('.control>i').toggleClass('love')
+        })
+
+        // ended	返回音频/视频的播放是否已结束。
+        audio.onended = function (e) {
+            $('#next').click()
+        }
+
+
+
+    </script>
+</body>
+
+</html>
