@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 375 -->
+
+    <script>
+        //  1. a^2+b^2+c^2 ==1000
+        var x = 0;
+        while (Math.pow(x, 2) <= 1000) {
+            x++
+        }
+        // console.log(x)
+        for (var i = 0; i < x; i++) {
+            for (var j = 0; j < x; j++) {
+                for (var z = 0; z < x; z++) {
+                    // console.log('.')
+                    if ((Math.pow(i, 2) + Math.pow(j, 2) + Math.pow(z, 2)) === 1000) {
+                        console.log(i, j, z)
+                    }
+                }
+            }
+        }
+        //0 10 30
+        // 0 18 26
+        // 0 26 18
+        // 0 30 10
+        // 6 8 30
+        // 6 30 8
+        // 8 6 30
+        // 8 30 6
+        // 10 0 30
+        // 10 18 24
+        // 10 24 18
+        // 10 30 0
+        // 18 0 26
+        // 18 10 24
+        // 18 24 10
+        // 18 26 0
+        // 24 10 18
+        // 24 18 10
+        // 26 0 18
+        // 26 18 0
+        // 30 0 10
+        // 30 6 8
+        // 30 8 6
+        // 30 10 0
+
+        // 2、 范围随机数
+        function random(start, end, n){
+            var nums = [];
+            if (isNaN(Number(start)) || isNaN(Number(end)) || isNaN(Number(end))) { return console.log('请输入数值或者带三个数合法格式数值来获得随机') }
+            if (start == end) {
+                for (var i = 0; i < n; i++) {
+                    nums.push(start)
+                }
+                return nums;
+            }
+            if (start < 0) { var end = end - start }
+            for (var i = 0; i < n; i++) {
+                var a = Math.random() / (10 / 11) * end + start
+                while (nums.includes(a)) {
+                    a = Math.random() / (10 / 11) * end + start
+                }
+                if (a > end) {
+                    num.push(end)
+                } else {
+                    nums.push(a)
+                }
+            }
+            return nums
+        }
+        var num = random(-20, -10, 5)
+
+
+        // 3、第五人几岁 ，第一个10岁
+
+        function yeas(n) {
+            if (n == 1) { return 10 }
+            return yeas(n - 1) + 2
+        }
+        console.log(yeas(5))
+        // 18岁
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>反弹</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: lightblue;
+            background-image: linear-gradient(rgba(151, 151, 151, 0.954) 1px, transparent 1px);
+            background-size: 100% 4em;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        div{
+            transition: all 0.1s linear;
+        }
+        .a {
+            width: 4em;
+            height: 4em;
+            background-color: lightcoral;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 5px;
+        }
+
+        .b {
+            width: 4em;
+            height: 4em;
+            background-color: rgb(128, 162, 240);
+            position: absolute;
+            left: 0em;
+            top: 4em;
+            border-radius: 5px;
+        }
+
+        .c {
+            width: 4em;
+            height: 4em;
+            background-color: rgb(240, 182, 128);
+            position: absolute;
+            left: 0em;
+            top: 8em;
+            border-radius: 5px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="a"></div>
+    <div class="b"></div>
+    <div class="c"></div>
+</body>
+    <script>
+        var bodyDOM = document.body;
+        //构造函数 WuTi 物体
+        function WuTi(ele,x,y,speedX,speedY) {
+            this.ele = document.querySelector('.'+ele)
+            this.width = this.ele.clientWidth
+            this.height = this.ele.clientHeight
+            this.speedX = speedX
+            this.speedY = speedY
+            this.x = x
+            this.y = y
+        }
+        //prototype 原型  x
+        WuTi.prototype.moveX = function () {
+            if(this.y>bodyDOM.clientWidth || this.x<-this.width){
+                this.ele.style.left = '0px';
+                this.x = 0;
+            }
+            if(this.x >= bodyDOM.clientWidth - this.width){
+                this.x = bodyDOM.clientWidth - this.width 
+                this.speedX = -this.speedX;
+            }else if(this.x<0){
+                this.x = 0
+                this.speedX = -this.speedX;
+            }
+            this.x +=this.speedX
+            this.ele.style.left = this.x+'px';
+        }
+        
+        // y方向
+        WuTi.prototype.moveY = function () {
+            if(this.y>bodyDOM.clientHeight || this.y<-this.height){
+                this.ele.style.top = '0px';
+                this.y = 0;
+            }
+            if(this.y >= bodyDOM.clientHeight - this.height ){
+                this.speedY = -this.speedY;
+            }else if(this.y<0 ){
+                this.speedY = -this.speedY;
+            }
+            this.y +=this.speedY
+            this.ele.style.top = this.y+'px';
+        }
+        var a = new WuTi('a',0,0,20,10)
+        var b = new WuTi('b',0,0,10,20)
+        var c = new WuTi('c',0,0,30,30)
+        var element = [a,b,c];
+        setInterval(function(){
+            element.forEach(function(e,i){
+                e.moveX();
+                e.moveY();
+            })
+        },100)
+
+    </script>
+
+</html>

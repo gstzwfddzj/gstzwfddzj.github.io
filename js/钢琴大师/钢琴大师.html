@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钢琴大师</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            margin: 0 auto;
+            background-image: url(./image//bg.png);
+            background-size: 100% auto;
+            position: relative;
+        }
+
+        .main {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 255, 255, 0.404);
+            position: relative;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .main i {
+            margin: 0;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            display: block;
+            background-image: url('./image/jingling.png');
+            background-repeat: no-repeat;
+            background-size: 600px;
+            background-position: -198px -82px;
+            position: absolute;
+        }
+
+        .main i.paly {
+            position: absolute;
+            left: 100px;
+            background-image: url('./image/playing.png');
+            background-size: 50%;
+            background-position: center;
+        }
+
+        .over {
+            position: absolute;
+            background-color: rgba(21, 17, 150, 0.724);
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background-image: url('./image/level1.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none;
+        }
+
+        .start {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.283);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 80;
+        }
+
+        .start i {
+            width: 200px;
+            height: 200px;
+            background-image: url('./image/jingling.png');
+            background-size: 500px;
+            background-repeat: no-repeat;
+            background-position: -322px -84px;
+            background-size: 497px;
+            transition: all 30ms linear;
+        }
+
+        .start_over {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('./image/bg.png');
+            background-size: 100% auto;
+            z-index: 300;
+
+        }
+
+        .start_over p {
+            position: absolute;
+            width: 80%;
+            height: 80px;
+            background-image: url('./image/jingling.png');
+            background-size: 241%;
+            left: 0;
+            right: 0;
+            top: 10%;
+            margin: 0 auto;
+        }
+
+        .start_over i {
+            display: block;
+            position: absolute;
+            width: 66%;
+            height: 93px;
+            background-image: url('./image/jingling.png');
+            background-size: 260%;
+            background-position: -258% 0px;
+            left: 0;
+            right: 0;
+            top: 50%;
+            margin: 0 auto;
+        }
+
+        .start_over span {
+            position: absolute;
+            width: 95%;
+            height: 95px;
+            bottom: 10px;
+            background-image: url(./image/jingling.png);
+            background-size: 156%;
+            background-repeat: no-repeat;
+            background-position: -2px 97%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+
+        .num {
+            position: absolute;
+            width: 200px;
+            height: 50px;
+            z-index: 90;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .num i {
+            width: 50px;
+            height: 50px;
+            background-image: url('./image/bd46b88b-305d-4c09-a696-e5d01bbc9564.png');
+            background-repeat: no-repeat;
+            background-size: 1000% 50px;
+            background-position: 1% 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        外挂
+        setInterval(()=>{
+        var firstArr = arr.filter(function (e) {
+            return e.node.className != 'paly'
+        })
+        if(firstArr[0]){
+            firstArr[0].node.onclick();
+        }
+    },500) -->
+    <div class="wrap">
+        <div class="start_over">
+            <p></p><i></i><span></span>
+        </div>
+        <div class="start"><i></i></div>
+        <div class="num">
+        </div>
+        <div class="over"></div>
+        <div class="main">
+        </div>
+    </div>
+    <script>
+        var music = [
+            [
+                25, 21, 22, 23, 24, 25, 21, 21, 26, 24, 25, 26, 27, 31, 21, 21, 24, 25, 24, 23, 22, 23, 24, 23, 22, 21, 17,
+                21, 22, 23, 21, 22, 25, 21, 22, 23, 24, 25, 21, 21, 26, 24, 25, 26, 27, 31, 21, 21, 24, 25, 24, 23, 22, 23,
+                24, 23, 22, 21, 22, 23, 22, 21, 17, 21,
+            ],
+            [
+                23, 22, 21, 17, 16, 15, 16, 17, 21, 17, 16, 15, 14, 13, 14, 12, 21, 17, 21, 11, 7, 15, 12, 13, 11, 21, 17, 16,
+                17, 23, 25, 26, 24, 23, 22, 24, 24, 23, 21, 17, 16, 15, 14, 13, 12, 14, 13, 12, 11, 12, 13, 14, 15, 12, 15,
+                14, 13, 16, 15, 14, 15, 14, 13, 12, 11, 6, 16, 17, 21, 17, 16, 15, 14, 13, 12, 16, 15, 16, 15, 14, 13, 23, 22,
+                21, 22, 21, 23, 22, 24, 25, 23, 24, 25, 23, 24, 25, 15, 16, 17, 21, 22, 23, 24, 23, 21, 22, 23, 13, 14, 15,
+                16, 15, 14, 15, 13, 14, 15, 14, 16, 15, 14, 13, 12, 13, 12, 11, 12, 13, 14, 15, 16, 14, 16, 15, 16, 17, 21,
+                15, 16, 17, 21, 22, 23, 24, 25, 23, 21, 22, 23, 22, 21, 22, 17, 21, 22, 23, 22, 21, 17, 21, 16, 17, 21, 11,
+                12, 13, 14, 13, 12, 13, 21, 17, 21, 16, 21, 17, 16, 15, 14, 15, 14, 13, 14, 15, 16, 17, 11, 16, 21, 17, 21,
+                17, 16, 17, 21, 22, 21, 17, 21, 16, 17, 23, 13, 14, 13, 12, 22, 23, 22, 21, 13, 11, 16, 15, 5, 4, 5, 6, 16,
+                17, 16, 17, 5, 4, 5, 6, 16, 15, 16, 17, 17, 16, 17, 11, 21, 22, 21, 17, 7, 11, 7, 6, 16, 15, 16, 17, 7, 13,
+                12, 11, 21, 22, 24, 23, 13, 15, 23, 21, 24, 23, 24, 22, 15, 14, 15, 13, 21, 17, 21, 13, 15, 15, 16, 17, 15,
+                13, 21, 22, 23, 21, 23, 23, 22, 21, 17, 16, 16, 15, 16, 17, 21, 23, 22, 21, 23,
+            ],
+        ];
+        var mainDOM = document.querySelector('.main')
+        var numDOM = document.querySelector('.num');
+        var num = 0;
+        var tag = [];
+        var one = document.createElement('i');
+        var ram = Math.round(Math.random());
+        tag.push(one)
+        numDOM.appendChild(one)
+        mainDOM.onclick = function () {
+            clearInterval(t);
+            document.querySelector('.over').style.display = 'block';
+        }
+        document.querySelector('.over').onclick = function () {
+            document.querySelector('.over').style.display = 'none';
+            window.history.go(0)
+        }
+        var speed = 0.02;
+        function Y(y) {
+            this.x = Math.floor(Math.random() * 4);
+            this.y = y;
+            var d = document.createElement('i');
+            d.style.left = this.x * 100 + 'px'
+            d.style.top = this.y * 100 + 'px'
+            this.node = d;
+            this.music = 0;
+            mainDOM.appendChild(d);
+        }
+        Y.prototype.move = function () {
+            var _this = this
+            this.node.onclick = function () {
+                // 当点击时 不阻止冒泡，父级点击也会触发
+                // event.stopPropagation();
+
+                var firstArr = arr.filter(function (e) {
+                    return e.node.className != 'paly'
+                })
+
+                if (this.isSameNode(firstArr[0].node)) {
+
+                    if (this.className == '') {
+                        num += 1;
+                    }
+
+                    this.className = 'paly';
+                    // 代码点击不会冒泡 所以开挂时，不能有冒泡这个事件在
+                    event.stopPropagation();
+
+                    // 加速
+                    if (num % 10 == 0) {
+                        speed += 0.01 * 10 / num
+                        // speed += num/5000 
+                    }
+
+                    //添加计分
+                    var index = num % 10;
+
+                    for (i = 0; i < String(num).length - (tag.length - 2); i++) {
+                        if (String(num).length > tag.length) {
+                            var a = document.createElement('i');
+                            numDOM.insertBefore(a, tag[tag.length - 1]);
+                            tag.push(a);
+                        }
+                    }
+
+                    for (var i = 0; i < tag.length; i++) {
+                        tag[i].style.backgroundPositionX = String(num)[String(num).length - (i + 1)] * 10 + Number(String(num)[String(num).length - (i + 1)]) + '%';
+                    }
+                    //音乐
+                    console.log(_this.music)
+                    var DOM = document.createElement('audio');
+                    DOM.src = './music/sound_'+_this.music+'.mp3'
+                    DOM.play();
+                }
+
+
+            }
+
+            this.y += speed;
+            // this.y += num/1000;
+            // 创建新的 i
+            if (arr[arr.length - 1].y >= 0) {
+                var a = new Y(-1);
+                a.music = music[ram][0];
+                music[ram].push(music[ram].shift())
+                arr.push(a)
+            }
+
+            var firstArr = arr.filter(function (e) {
+                return e.node.className != 'paly'
+            })
+
+            if (firstArr[0] && (firstArr[0].y + 1) * 100 >= document.body.clientHeight) {
+                clearInterval(t)
+                document.querySelector('.over').style.display = 'block';
+            }
+
+            if (arr.length > Math.ceil(document.body.clientHeight / arr[0].node.clientHeight)) {
+                mainDOM.removeChild(arr[0].node)
+                arr.shift();
+            }
+
+            this.updata();
+        }
+
+        Y.prototype.updata = function () {
+            this.node.style.left = this.x * 100 + 'px'
+            this.node.style.top = this.y * 100 + 'px'
+        }
+
+        var arr = [];
+        // init
+        for (var i = 3; i > 0; i--) {
+            var a = new Y(i - 2);
+            a.music = music[ram][0];
+            music[ram].push(music[ram].shift())
+            arr.push(a)
+        }
+
+        var t = setInterval(() => {
+            arr.forEach((e) => {
+                e.move();
+            })
+        }, 20)
+
+        document.querySelector('.start_over i').onclick = function () {
+            setTimeout((e) => {
+                clearInterval(t)
+                document.querySelector('.start').onclick = function () {
+                    document.querySelector('.start').style.display = 'none';
+                    t = setInterval(() => {
+                        arr.forEach((e) => {
+                            e.move();
+                        })
+                    }, 30)
+                }
+            }, 300)
+
+            document.querySelector('.start_over').style.display = 'none'
+
+        }
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>

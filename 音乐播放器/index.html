@@ -18,7 +18,7 @@
     </style>
 </head>
 
-<body>
+<body onselectstart="return false">
     <div class="wrap">
         <div class="up">
             <div>
@@ -43,14 +43,15 @@
         <div class="down">
             <h1>晴天</h1>
             <h2>周杰伦</h2>
-            <div>
+            <div class="">
+                <div class="ing"><i></i></div>
                 <span>00:00</span><input type="range" value="0" max="600"><span>00:00</span>
             </div>
         </div>
     </div>
 
     <script>
-          var data = [
+        var data = [
             {
                 id: 0,
                 name: '最伟大的作品',
@@ -77,11 +78,16 @@
             },
         ]
 
+        if(localStorage.getItem('data')){
+            data = JSON.parse(localStorage.getItem('data'))
+        }
+        var audio,index;
+
+        localStorage.getItem('playIndex')?index=localStorage.getItem('playIndex'):index=0
 
         function 转换时间(date) {
             return (parseInt(+date / 60) < 10 ? '0' + parseInt(+date / 60) : parseInt(+date / 60)) + ':' + (parseInt(+date % 60) < 10 ? '0' + parseInt(date % 60) : parseInt(date % 60))
         }
-        var audio, index = 0;
 
         audio = document.createElement('audio')
         $('body').append(audio)
@@ -89,6 +95,8 @@
         function zuizhong() {
             $('input').val(audio.currentTime)
             $('.down span').eq(0).text(转换时间(audio.currentTime))
+            $('.ing>i').css('width', + $('input').val() / $('input').attr('max') * 100 + '%')
+            localStorage.setItem('playIndex',index)
         }
         function add(num) {
             $('.wrap .up .img:last-of-type').css({
@@ -153,24 +161,55 @@
             }
         })
 
-
+        // 点击
         $('input')[0].onmousedown = function () {
             audio.ontimeupdate = null
             var _this = this
             this.onmousemove = function (e) {
                 $('.down span').eq(0).text(转换时间(_this.value))
+                $('.ing>i').css('width', + $(this).val() / $(this).attr('max') * 100 + '%')
             }
         }
         $('input')[0].onmouseup = function (e) {
             audio.ontimeupdate = zuizhong
             audio.currentTime = $(this).val()
+            $('.ing>i').css('width', + $(this).val() / $(this).attr('max') * 100 + '%');
             this.onmousemove = null
         }
 
+
+
+        // 爱心切换颜色
         $('.control >i:first-child').click(function (e) {
             data[index].love = !data[index].love
             $('.control>i').toggleClass('love')
+            localStorage.setItem('data', JSON.stringify(data))
         })
+
+        // 手机端
+        $('input')[0].ontouchstart = function () {
+            audio.ontimeupdate = null
+            var _this = this
+            this.ontouchmove = function (e) {
+                $('.down span').eq(0).text(转换时间(_this.value))
+                $('.ing>i').css('width', + $(this).val() / $(this).attr('max') * 100 + '%')
+            }
+        }
+        $('input')[0].ontouchend = function (e) {
+            audio.ontimeupdate = zuizhong
+            audio.currentTime = $(this).val()
+            $('.ing>i').css('width', + $(this).val() / $(this).attr('max') * 100 + '%')
+            this.onmousemove = null
+        }
+
+
+
+
+
+
+
+
+
 
         // ended	返回音频/视频的播放是否已结束。
         audio.onended = function (e) {

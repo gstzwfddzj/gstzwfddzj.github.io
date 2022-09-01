@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>别踩</title>
+    <link rel="shortcut icon" href="./image/t1.png" type="image/x-icon">
+    <style>
+        * {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        body::-webkit-scrollbar{
+            width: 0;
+        }
+        .wrap {
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            position:relative;
+            z-index: 100;
+        }
+
+        .wrap h3 {
+            width: 200px;
+            height: 50px;
+            margin: auto;
+            border: 1px solid rgba(0, 0, 0, 0.619);
+            line-height: 50px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .wrap h3>ul {
+            position: absolute;
+            z-index: 10;
+            transition: all .5s;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 0px;
+            left: -1px;
+        }
+
+        .wrap h3>ul>li {
+            width: 200px;
+            height: 50px;
+            margin: auto;
+            border: 1px solid rgba(0, 0, 0, 0.619);
+            line-height: 50px;
+            border-radius: 10px;
+            background-color: rgb(218, 245, 245);
+            position: relative;
+        }
+
+        .wrap h3>ul>li>span {
+            position: absolute;
+            left: 0px;
+            width: 100px;
+            text-align: center;
+            color: rgb(239, 153, 24);
+
+        }
+    </style>
+</head>
+
+<body onselectstart="return false">
+    <div class="wrap">
+        <br>
+        <br>
+        <br>
+        <h1>别踩白块儿</h1>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h3>开始游戏</h3>
+        <br>
+        <br>
+        <h3>选择难度
+            <ul>
+                <li><span>*</span>简单</li>
+                <li><span>**</span>一般</li>
+                <li><span>***</span>困难</li>
+            </ul>
+        </h3>
+        <br>
+        <br>
+        <h3>选择列数
+            <ul>
+                <li><span>*</span>4列</li>
+                <li><span>**</span>5列</li>
+                <li><span>***</span>6列</li>
+            </ul>
+        </h3>
+        <br>
+        <br>
+        <h3>主题颜色
+            <ul>
+                <li>紫</li>
+                <li>蓝</li>
+                <li>绿</li>
+            </ul>
+        </h3>
+    </div>
+    <div class="track">
+    </div>
+</body>
+<script>
+    function DOM(string) {
+        function DOM(ele) {
+            this.ele = document.querySelector(ele)
+        }
+        DOM.prototype.add = function (tag, width, height, backColor, text) {
+            if ((typeof width) == "number") { width += 'px'; height += 'px'; }
+            text == undefined ? text = null : text;
+            var tagDOM = document.createElement(tag)
+            tagDOM.style.width = width
+            tagDOM.style.height = height
+            tagDOM.style.backgroundColor = backColor
+            tagDOM.innerHTML = text;
+            this.ele.appendChild(tagDOM);
+            return tagDOM;
+        }
+        DOM.prototype.remove = function (tag) {
+            var tagDOM = document.querySelector(tag)
+            this.ele.removeChild(tagDOM)
+            return tagDOM;
+        }
+        DOM.prototype.addfirst = function (newTag, newTagEnd) {
+            this.ele.insertBefore(document.createElement(newTag), DOM(newTagEnd))
+        }
+        return new DOM(string);
+
+    }
+    function DOMzisha(tag, number) {
+        if (number == undefined) { number = 0 }
+        var tagDOM = document.querySelectorAll(tag)[number]
+        if (tagDOM == null || document.body.matches(tag)) { return console.log('DOMSuiCide(' + tag + ',' + number + ') 没有选择到所需删除的元素'); }
+        tagDOM.parentNode.removeChild(tagDOM);
+        return tagDOM;
+    }
+    function DOMstyle(ele, string) {
+        var reg = /\b([\w|-| ])+\:.+[\n|\;]/gm
+        var arr = string.match(reg);
+        arr.forEach((e) => {
+            var ee = e.match(/[^\:\;]+/mg)
+            ele.style[ee[0]] = ee[1];
+        })
+        return arr
+    }
+
+</script>
+
+<script>
+
+    function copy(arr, i) {
+        var arrCopy = [];
+        arr[i].forEach(function (e) {
+            arrCopy.push(e)
+        })
+        return arrCopy;
+    }
+
+
+    var music1 = [
+        [
+            25, 21, 22, 23, 24, 25, 21, 21, 26, 24, 25, 26, 27, 31, 21, 21, 24, 25, 24, 23, 22, 23, 24, 23, 22, 21, 17,
+            21, 22, 23, 21, 22, 25, 21, 22, 23, 24, 25, 21, 21, 26, 24, 25, 26, 27, 31, 21, 21, 24, 25, 24, 23, 22, 23,
+            24, 23, 22, 21, 22, 23, 22, 21, 17, 21,
+        ],
+        [
+            23, 22, 21, 17, 16, 15, 16, 17, 21, 17, 16, 15, 14, 13, 14, 12, 21, 17, 21, 11, 7, 15, 12, 13, 11, 21, 17, 16,
+            17, 23, 25, 26, 24, 23, 22, 24, 24, 23, 21, 17, 16, 15, 14, 13, 12, 14, 13, 12, 11, 12, 13, 14, 15, 12, 15,
+            14, 13, 16, 15, 14, 15, 14, 13, 12, 11, 6, 16, 17, 21, 17, 16, 15, 14, 13, 12, 16, 15, 16, 15, 14, 13, 23, 22,
+            21, 22, 21, 23, 22, 24, 25, 23, 24, 25, 23, 24, 25, 15, 16, 17, 21, 22, 23, 24, 23, 21, 22, 23, 13, 14, 15,
+            16, 15, 14, 15, 13, 14, 15, 14, 16, 15, 14, 13, 12, 13, 12, 11, 12, 13, 14, 15, 16, 14, 16, 15, 16, 17, 21,
+            15, 16, 17, 21, 22, 23, 24, 25, 23, 21, 22, 23, 22, 21, 22, 17, 21, 22, 23, 22, 21, 17, 21, 16, 17, 21, 11,
+            12, 13, 14, 13, 12, 13, 21, 17, 21, 16, 21, 17, 16, 15, 14, 15, 14, 13, 14, 15, 16, 17, 11, 16, 21, 17, 21,
+            17, 16, 17, 21, 22, 21, 17, 21, 16, 17, 23, 13, 14, 13, 12, 22, 23, 22, 21, 13, 11, 16, 15, 5, 4, 5, 6, 16,
+            17, 16, 17, 5, 4, 5, 6, 16, 15, 16, 17, 17, 16, 17, 11, 21, 22, 21, 17, 7, 11, 7, 6, 16, 15, 16, 17, 7, 13,
+            12, 11, 21, 22, 24, 23, 13, 15, 23, 21, 24, 23, 24, 22, 15, 14, 15, 13, 21, 17, 21, 13, 15, 15, 16, 17, 15,
+            13, 21, 22, 23, 21, 23, 23, 22, 21, 17, 16, 16, 15, 16, 17, 21, 23, 22, 21, 23,
+        ],
+    ];
+
+    var h3DOM = document.querySelectorAll('.wrap h3')
+    var liDOM = document.querySelectorAll('.wrap h3 ul li')
+    var musicKey = Math.floor(Math.random()*music1.length)
+    var arr3 = [700, 500, 350, 4, 5, 6, '#aab4ff', '#1a73e8', '#8dc63f']
+    var nanDu = 0;
+    var col = 3;
+    var yanse = 6
+    function xiala(i) {
+        h3DOM[i].onclick = function () {
+            ii[i] = !ii[i]
+            if (ii[i] && !ii[i + 1]) {
+                this.querySelector('ul').style.height = '200px'
+            } else {
+                this.querySelector('ul').style.height = '0px'
+            }
+        }
+    }
+
+    var ii = Array(document.querySelectorAll('.wrap h3').length).fill(false)
+    for (let i = 1; i < ii.length; i++) {
+        xiala(i)
+    }
+
+    liDOM.forEach((e, i) => {
+        e['data-index'] = i;
+        e.onclick = function (i) {
+            if (this['data-index'] < 3) {
+                h3DOM[1].firstChild.remove();
+                h3DOM[1].insertBefore(document.createTextNode(this.innerText), h3DOM[1].firstChild)
+                nanDu = this['data-index']
+            } else if (this['data-index'] < 6) {
+                h3DOM[2].firstChild.remove();
+                h3DOM[2].insertBefore(document.createTextNode(this.innerText), h3DOM[2].firstChild)
+                col = this['data-index']
+            } else if (this['data-index'] < 9) {
+                h3DOM[3].firstChild.remove();
+                h3DOM[3].insertBefore(document.createTextNode(this.innerText), h3DOM[3].firstChild)
+                yanse = this['data-index']
+            }
+        }
+    })
+
+    // 开始按钮
+    h3DOM[0].onclick = function () {
+        DOM('.wrap').ele.style.display = 'none'
+        baiKuai(arr3[nanDu], arr3[col], arr3[yanse])
+    }
+
+    function reset() {
+
+        document.querySelectorAll('div').forEach((e) => {
+            if (e.className === '') {
+                e.remove();
+            }
+            if (e.className == 'track') {
+                e.querySelectorAll('li').forEach((el) => {
+                    el.remove();
+                })
+            }
+        })
+        baiKuai(arr3[nanDu], arr3[col], arr3[yanse])
+    }
+
+
+    // 移动白块
+    function baiKuai(baikuaiTime, colN, color) {
+        var music = copy(music1, musicKey);
+        console.log(music)
+        var color = color == undefined ? '#aab4ff' : color;
+
+        var track = document.querySelector('.track');
+        var resetDOM = DOM('body').add('div', 200, 200, '', '<span>您的得分是 <em>0</em> 分</span>')
+        // 得分模板
+        DOMstyle(resetDOM, `position:fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom:0;
+            margin: auto; 
+            backgroundColor: `+ color + `;
+            borderRadius:20px;
+            display:none;
+            lineHeight:50px;
+            boxShadow: 0 0 10px 0 white;
+            `)
+        var resetButtonDOM = resetDOM.appendChild(DOM('body').add('button', 150, 50, 'transparent', '重新开始'))
+        resetButtonDOM.setAttribute('onclick', 'reset()')
+        DOMstyle(resetButtonDOM, `
+        borderRadius:10px;
+        display:block;
+        margin:15px auto;
+        color:#221b26;
+        borderColor:#000;
+        `)
+        var resetButtonDOM2 = resetDOM.appendChild(DOM('body').add('button', 150, 50, 'transparent', '返回'))
+        resetButtonDOM2.setAttribute('onclick', 'window.history.go(0);')
+        DOMstyle(resetButtonDOM2, `
+        borderRadius:10px;
+        display:block;
+        margin:15px auto;
+        color:#221b26;
+        borderColor:#000;
+        `)
+
+        var divDOM = DOM('body').add('div', 100, 100, '', '0')
+        // 分数
+        DOMstyle(divDOM, `position:fixed;
+            left: 0;
+            right: 0;
+            top: 10px;
+            margin: 0 auto; 
+            color:`+ color + `;
+            fontSize:30px;
+            pointerEvents:none;
+            `)
+        // box背景
+        DOMstyle(track, `width: 100%;
+            height: 100vh;
+            backgroundColor: `+ color + `;
+            display: flex;
+            flexDirection: column;
+            justifyContent: flex-end;
+            overflow: hidden;
+            border: 5px solid `+ color + `;
+            borderRadius: 10px;
+            boxSizing: border-box;`)
+        var cfirstLiDOM = document.createElement('li')
+        // 设置li 宽度 大小 ， 是否忙屏
+        DOMstyle(cfirstLiDOM, `
+            margin: 0 auto;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            maxWidth: calc(100vh / 1.2);`)
+        for (let i = 0; i < colN; i++) {
+            var a = document.createElement('ul');
+            cfirstLiDOM.appendChild(a);
+        }
+
+        var time = baikuaiTime;
+        var number = 0;
+        var number2 = 1;
+
+        function createLI(time) {
+            var kelon = cfirstLiDOM.cloneNode(true)// 克隆
+            kelon.style.transition = 'all ' + time + 'ms linear'
+            var ulDOM = kelon.getElementsByTagName('ul')
+            ulDOM = Array.prototype.slice.call(ulDOM)
+            ulDOM.forEach((e) => {
+                DOMstyle(e, `
+            transition: all ` + time + `ms;
+            width: 25%;
+            height: 25vh;
+            backgroundColor: rgb(255, 255, 255);
+            outline: 1px solid #000;
+            `);
+            })
+            var n = parseInt(Math.random() * colN);
+            ulDOM[n].className = 'cai';
+            DOMstyle(ulDOM[n], `backgroundColor: #000;`)
+            track.appendChild(kelon);
+        }
+
+        for (let i = 0; i < 5; i++) {
+            createLI(time);
+        }
+
+        var hua, shan, ulDOM, is, quanju = true;
+
+        var lastLiDOM = document.querySelector('.track li:last-child')
+
+        // 点击开始走
+        lastLiDOM.onclick = function () {
+            DOMstyle(lastLiDOM.getElementsByClassName('cai')[0], `backgroundColor:` + color + `;`)
+            lastLiDOM.getElementsByClassName('cai')[0].className = 'ok';
+            number++;
+            divDOM.innerText = number;
+            ulDOM = document.querySelectorAll('ul');
+            //  添加音乐
+            var audioDOM = document.createElement('audio')
+            audioDOM.src = './music/sound_' + music[0] + '.mp3'
+            music.push(music.shift());
+            audioDOM.play();
+
+            click(ulDOM);
+            lastLiDOM.style.marginBottom = '-25vh';
+            shudu(time);
+        }
+
+        //  定时器封装
+        function shudu(time) {
+            shan = setInterval(() => {
+                DOMzisha('.track li:last-child')
+                // 删除时切换定时器
+                if (number % 10 === 0 && is) {
+                    clearInterval(shan)
+                    clearInterval(hua)
+                    is = false
+                    document.querySelectorAll('li').forEach((e) => {
+                        e.style.transition = 'all ' + (time - (100 / number2)) + 'ms linear'
+                    })
+                    var lastLiDOM = DOM('.track li:last-child').ele
+                    var firstLiDOM = DOM('.track li:first-child').ele
+                    lastLiDOM.style.marginBottom = '-' + 25 + 'vh';
+                    var kelon = cfirstLiDOM.cloneNode(true)// 克隆
+                    kelon.style.transition = 'all ' + (time - (100 / number2)) + 'ms linear'
+                    var ulDOM = kelon.getElementsByTagName('ul')
+                    ulDOM = Array.prototype.slice.call(ulDOM)
+                    ulDOM.forEach((e) => {
+                        DOMstyle(e, `
+                        transition: all ` + time + `ms;
+                        width: 25%;
+                        height: 25vh;
+                        backgroundColor: rgb(255, 255, 255);
+                        outline: 1px solid #000;
+                        `);
+                    })
+                    var n = parseInt(Math.random() * colN);
+                    ulDOM[n].className = 'cai'
+                    DOMstyle(ulDOM[n], `backgroundColor: #000;`)
+                    track.insertBefore(kelon, firstLiDOM);
+                    ulDOM = document.querySelectorAll('ul')
+                    click(ulDOM);
+
+                    shudu(time - (100 / number2));
+                }
+            }, time)
+
+            hua = setInterval(() => {
+                var firstLiDOM = DOM('.track li:first-child').ele
+                var lastLiDOM = DOM('.track li:last-child').ele
+                DOMstyle(lastLiDOM, 'marginBottom:-25vh;')
+                var kelon = cfirstLiDOM.cloneNode(true)// 克隆
+                kelon.style.transition = 'all ' + time + 'ms linear';
+                var ulDOM = kelon.getElementsByTagName('ul')
+                ulDOM = Array.prototype.slice.call(ulDOM)
+                ulDOM.forEach((e) => {
+                    DOMstyle(e, `
+                    transition: all ` + time + `ms;
+                    width: 25%;
+                    height: 25vh;
+                    backgroundColor: rgb(255, 255, 255);
+                    outline: 1px solid #000;
+                    `);
+                })
+                var n = parseInt(Math.random() * colN);
+                ulDOM[n].className = 'cai'
+                DOMstyle(ulDOM[n], `backgroundColor: #000;`)
+                track.insertBefore(kelon, firstLiDOM);
+                ulDOM = document.querySelectorAll('ul')
+                click(ulDOM);
+            }, time)
+
+        }
+
+        function click(ulDOM) {
+            var lastLiDOM = document.querySelector('.track li:last-child')
+            ulDOM.forEach((e, i) => {
+                e.onclick = function () {
+                    is = true
+                    if (this.className == 'cai') {
+                        number++;
+
+                        //  添加音乐
+                        var audioDOM = document.createElement('audio')
+                        audioDOM.src = './music/sound_' + music[0] + '.mp3'
+                        music.push(music.shift());
+                        audioDOM.play();
+
+                    }
+                    if (divDOM) {
+                        divDOM.innerText = number;
+                    }
+                    if (number % 10 == 0) {
+                        number2++;
+                    }
+                    var _this = this
+
+                    if (quanju) {
+
+                        if (this.className == '') {
+                            clearInterval(hua)
+                            clearInterval(shan)
+                            resetDOM.style.display = 'block';
+                            resetDOM.querySelector('span').innerHTML = '您的得分是 <em>' + number + '</em> 分'
+                            quanju = false
+                            var aaa = true;
+                            lastLiDOM.style.marginBottom = 0 + 'px';
+                            var numTime = setInterval(function () {
+                                _this.style.transition = 'all .1s'
+                                aaa ? _this.style.backgroundColor = 'red' : _this.style.backgroundColor = 'white';
+                                aaa = !aaa
+                            }, 200)
+                            setTimeout(function () {
+                                clearInterval(numTime);
+                            }, 1000)
+                        }
+                        this.className = 'ok'
+                        DOMstyle(this, `backgroundColor: ` + color + `;`)
+
+                    }
+
+                }
+            })
+        }
+
+    }
+
+
+
+</script>
+
+</html>

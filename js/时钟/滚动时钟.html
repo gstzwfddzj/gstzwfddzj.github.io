@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滚动</title>
+    <style>
+        body {
+            display: flex;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .wrap {
+            display: flex;
+            margin: auto;
+            justify-content: center;
+            bottom: -4px;
+            left: 0;
+            position: fixed;
+        }
+
+        .wrap>div {
+            width: 150px;
+            height: 100px;
+            background-color: rgb(22, 25, 27);
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            border: 1px solid #fff;
+            border-radius: 10px;
+            box-shadow: 1px 0px 10px 0 #fff;
+            /* transform: scale3d(10px 10px 10px); */
+            transform: rotateZ(1deg);
+            /* transform: rotateX(-10deg); */
+            /* transform: rotateY(10deg); */
+        }
+
+        .wrap>div:first-child {
+            transform: rotateZ(-2deg);
+        }
+
+        .wrap div div {
+            height: 50px;
+            width: 50px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .wrap div span {
+            /* flex-shrink: 0; */
+            width: 100%;
+            height: 50px;
+            font-size: 50px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            margin-top: 0px;
+            transition: all .5s;
+            /* border: 1px solid rgb(230, 165, 165); */
+            /* box-sizing: border-box; */
+            box-shadow: 0 0 10px 0 #ffffff;
+        }
+
+        .clock {
+            width: 500px;
+            height: 500px;
+            /* background-color: rgba(218, 232, 238, 0.806); */
+            background-image: url('./image/R-C.jpg') ;
+            background-repeat: no-repeat;
+            background-position: -350px;
+            background-size: 500%;
+            border-radius: 50%;
+            margin: auto;
+            position: relative;
+            /* transform: rotate(20deg); */
+            border: 15px solid rgba(216, 216, 216, 0.913);
+            transform: rotate(0deg);
+        }
+
+        .pointer {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .pointer span {
+            transform-origin: center 250px;
+        }
+
+        .hands {
+            width: 8px;
+            height: 30px;
+            background-color: rgb(184, 184, 184);
+            position: absolute;
+            /* text-align: center; */
+            /* color: #4c4c4c; */
+            color: #fff;
+            line-height: 80px;
+        }
+
+        .minute {
+            width: 4px;
+            height: 15px;
+            position: absolute;
+            background-color: rgb(171, 171, 171);
+            /* margin-left: -2px; */
+        }
+        .clockPointer{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: lightcoral;
+            z-index: 1;
+        }
+        .hP{
+            width: 10px;
+            height: 130px;
+            background-color: rgb(189, 189, 189);
+            left: 0;
+            right: 0;
+            margin: auto;
+            position: absolute;
+            z-index: -1;
+            bottom: -10px;
+            transform-origin: center 112px;
+            transform: rotate(300deg);
+            /* border-radius: 60px 60px 10px 10px; */
+            border-top-left-radius: 30px 50px;
+            border-top-right-radius: 30px 50px;
+            /* border-bottom-left-radius: 10px; */
+            /* border-bottom-right-radius: 10px; */
+        }
+        .mP{
+            width: 8px;
+            height: 250px;
+            background-color: rgb(182, 182, 182);
+            left: 0;
+            right: 0;
+            margin: auto;
+            position: absolute;
+            z-index: -1;
+            bottom: -15px;
+            transform-origin: center 227px;
+            transform: rotate(0deg);
+            border-top-left-radius: 30px 100px;
+            border-top-right-radius: 30px 100px;
+        }
+        .sP{
+            width: 4px;
+            height: 250px;
+            background-color: rgb(222, 32, 32);
+            left: 0;
+            right: 0;
+            margin: auto;
+            position: absolute;
+            z-index: -1;
+            bottom: -25px;
+            transform-origin: center 217px;
+            transform: rotate(78deg);
+            /* border-radius: 60px 60px 10px 10px; */
+            border-top-left-radius: 10px 100px;
+            border-top-right-radius: 10px 100px;
+            /* border-bottom-left-radius: 10px; */
+            /* border-bottom-right-radius: 10px; */
+        }
+        .circle{
+            width: 16px;
+            height: 16px;
+            background-color: rgb(49, 20, 20);
+            left: 0;
+            right: 0;
+            margin: auto;
+            position: absolute;
+            z-index: -1;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="hh">
+            <div><span>0</span></div>
+            <div><span>0</span></div>
+        </div>
+        <div class="mm">
+            <div><span>0</span></div>
+            <div><span>0</span></div>
+        </div>
+        <div class="ss">
+            <div><span>0</span></div>
+            <div><span>0</span></div>
+        </div>
+    </div>
+
+    <div class="clock">
+        <div class="pointer"></div>
+        <div class="clockPointer">
+            <div class="hP"></div>
+            <div class="mP"></div>
+            <div class="sP"></div>
+            <div class="circle"></div>
+        </div>
+
+    </div>
+
+
+    <script>
+        function shuHe(params) {
+            return String(params).padStart(2, '0')
+        }
+
+        function dsq(ssDom, ss) {
+            var spanN = document.createElement('span');
+            spanN.innerText = ss
+            var num = ssDom.getElementsByTagName('span')[0].innerText;
+            if (num !== ss) {
+                ssDom.appendChild(spanN);
+                ssDom.getElementsByTagName('span')[0].style.marginTop = '-50px';
+                setTimeout(function () {
+                    ssDom.style.marginTop = '0px';
+                    ssDom.removeChild(ssDom.getElementsByTagName('span')[0])
+                }, 500)
+            }
+        }
+
+        setInterval(function () {
+            var hhDom = document.querySelectorAll('.hh div')
+            var mmDom = document.querySelectorAll('.mm div')
+            var ssDom = document.querySelectorAll('.ss div')
+            var hh = shuHe(new Date().getHours())
+            var mm = shuHe(new Date().getMinutes())
+            var ss = shuHe(new Date().getSeconds())
+
+            hhDom.forEach((e, i) => {
+                dsq(e, hh[i])
+            });
+            mmDom.forEach((e, i) => {
+                dsq(e, mm[i])
+            });
+            ssDom.forEach((e, i) => {
+                dsq(e, ss[i])
+            });
+        }, 100);
+    </script>
+
+    <script>
+        var pointerDOM = document.querySelectorAll('.pointer')[0]
+        var count = 12;
+        for (var i = 0; i <= 60; i++) {
+            var pSpan = document.createElement('span')
+            if (i % 5 == 0) {
+                if(count>=10){pSpan.style.textIndent = '-6px'}
+                pSpan.innerText = count==0?count=12:count>12?count=1:count;
+                count++;
+                pSpan.className = 'hands';
+            } else {
+                pSpan.className = 'minute';
+            }
+            pSpan.style.transform = ' rotate('+i*(360/(12*5))+'deg)'
+            pointerDOM.appendChild(pSpan)
+        }
+
+        var hDOM = document.querySelectorAll('.clock .clockPointer .hP')[0]
+        var mDOM = document.querySelectorAll('.clock .clockPointer .mP')[0]
+        var sDOM = document.querySelectorAll('.clock .clockPointer .sP')[0]
+
+
+        setInterval(()=>{
+            var h = new Date().getHours()
+            var m = new Date().getMinutes()
+            var s = new Date().getSeconds()
+            hDOM.style.transform =  'rotate('+(h*(360/12)+m*(360/60/12))+'deg)'
+            mDOM.style.transform =  'rotate('+(m*(360/60)+s*(360/60/60))+'deg)'
+            sDOM.style.transform =  'rotate('+s*(360/60)+'deg)'
+            
+        },0)
+        
+        
+        
+    </script>
+</body>
+
+</html>

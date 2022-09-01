@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('./image/2048a.jpg');
+            width: 100vw;
+
+        }
+
+        h1 {
+            position: absolute;
+            top: -30px;
+            left: -220px;
+            color: rgba(169, 247, 33, 0.783);
+            width: 195px;
+            background-color: rgba(250, 235, 215, 0.432);
+            border-radius: 20px;
+            padding: 10px;
+            font-family: '楷体';
+            /* word-break: break-all; */
+            word-wrap: break-word;
+        }
+
+        h1 span {
+            font-family: 'Courier New', Courier, monospace;
+            color: rgba(244, 182, 24, 0.947);
+        }
+
+        .box {
+            width: 420px;
+            height: 400px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        ul {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            background-color: rgba(232, 250, 210, 0.509);
+            border: 10px solid rgba(228, 250, 210, 0.733);
+            border-radius: 20px;
+        }
+
+        li {
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 0, 0, 0.167);
+            border-radius: 10px;
+            line-height: 100px;
+            font-size: 26px;
+            color: white;
+            background-color: rgba(250, 245, 215, 0.874);
+        }
+
+        .xuankuan2048 {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.687);
+            border: 5px solid rgba(182, 222, 61, 0.877);
+            visibility: hidden;
+        }
+
+        .xuankuan2048 p {
+            color: rgb(58, 131, 194);
+            font-size: 16px;
+        }
+
+        .xuankuan2048 .score2 {
+            position: absolute;
+            top: 42px;
+            font-size: 20px;
+            color: red;
+            font-family: '楷体';
+            letter-spacing: 2px;
+        }
+
+        button {
+            position: absolute;
+            top: 80px;
+            width: 200px;
+            height: 40px;
+            background-color: rgba(217, 244, 148, 0.45);
+            border: 2px solid rgba(182, 222, 61, 0.877);
+            border-radius: 100px;
+            font-size: 16px;
+            color: rgb(35, 65, 128);
+            outline: none;
+        }
+
+        button:last-child {
+            top: 140px;
+        }
+    </style>
+</head>
+
+<body onselectstart="return false">
+    <div class="box">
+        <h1 class="score">得分: <span>0</span></h1>
+        <div class="xuankuan2048">
+            <p>游戏结束！您的得分是</p>
+            <div class="score2">8989890分</div><button onclick="reset2048();">重新开始</button><button
+                onclick="cancel2048()">取消!我要看内容</button>
+        </div>
+        <ul>
+
+        </ul>
+    </div>
+    <script>
+        var ulDOM = document.querySelector('ul')
+        var score = 0;
+        var raw = [];
+        var nums = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+        function reset2048() {
+            nums = [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ];
+            score = 0;
+            document.querySelector('.xuankuan2048').style.visibility = 'hidden';
+            shuiji();
+            xuanran();
+        }
+        function cancel2048() {
+            document.querySelector('.xuankuan2048').style.visibility = 'hidden';
+        }
+        function shuiji() {
+            var index = 0;
+            nums.forEach((e) => {
+                if (e.includes(0)) {
+                    index++;
+                }
+            })
+            if (index > 0 && String(nums) !== String(raw)) {
+                var number = 0;
+                var number2 = 0;
+                if (score > 8000) {
+                    var suijishu = [2];
+                    for (let index = 2; index <=  Number(String(score/4).slice(0,1)); index++) {
+                        suijishu.push(Math.pow(2,index))
+                    }
+                    var rd = suijishu[parseInt(Math.random() * 10) % (Number(String(score/4).slice(0,1)))]
+                    console.log(suijishu)
+                } else {
+                    var rd = 2
+                }
+                do {
+                    number = Math.floor(Math.random() * 4)
+                    number2 = Math.floor(Math.random() * 4)
+                } while (nums[number][number2] != 0 );
+                nums[number][number2] = rd;
+                document.querySelector('h1 span').innerText = score;
+            } else {
+                let new1 = [];
+                let new2 = [];
+                let new3 = [];
+                let new4 = [];
+
+                raw.forEach((e, ei) => {
+                    let newArr = 相加L(e, e.length - 1, 0);
+                    let newa = newArr.filter((e) => {
+                        return e != 0;
+                    })
+                    let n = newa.length;
+                    for (let index = 0; index < e.length - n; index++) {
+                        newa.push(0);
+                    }
+                    new1.push(newa)
+                })
+                raw.forEach((e, ei) => {
+                    let newArr = 相加R(e, 0, e.length - 1);
+                    let newa = newArr.filter((e) => {
+                        return e != 0;
+                    })
+                    let n = newa.length;
+                    for (let index = 0; index < e.length - n; index++) {
+                        newa.unshift(0);
+                    }
+                    new2.push(newa)
+                    newa = null;
+                })
+                {
+                    let newa = addT(raw, nums.length - 1, 0);
+                    let kelong = [[], [], [], []];
+                    newa.forEach((e, ei) => {
+                        let arr1 = [];
+                        for (let index = 0; index < e.length; index++) {
+                            arr1.push(newa[index][ei]);
+                        }
+                         arr1 = arr1.filter((e) => {
+                            return e != 0;
+                        })
+                        let n = arr1.length;
+                        for (let index = 0; index < e.length - n; index++) {
+                            arr1.push(0);
+                        }
+
+                        for (let jj = 0; jj < arr1.length; jj++) {
+                            kelong[jj][ei] = arr1[jj]
+                        }
+
+                    })
+                    new3 = kelong;
+                }
+                {
+                    let newa = addB(raw, nums.length - 1, 0);
+                    let kelong = [[], [], [], []];
+                    newa.forEach((e, ei) => {
+                        let arr1 = [];
+                        for (let index = 0; index < e.length; index++) {
+                            arr1.push(newa[index][ei]);
+                        }
+                         arr1 = arr1.filter((e) => {
+                            return e != 0;
+                        })
+                        let n = arr1.length;
+                        for (let index = 0; index < e.length - n; index++) {
+                            arr1.unshift(0);
+                        }
+
+                        for (let jj = 0; jj < arr1.length; jj++) {
+                            kelong[jj][ei] = arr1[jj]
+                        }
+                    })
+                    new4 = kelong;
+                }
+                console.log(new1)
+                console.log(new2)
+                console.log(new3)
+                console.log(new4)
+                if (String(new1) == String(new2) && String(new1) == String(new3) && String(new1) == String(new4)) {
+                    document.querySelector('.xuankuan2048').style.visibility = 'visible'
+                    document.querySelector('.xuankuan2048 .score2').innerText = score +'分'
+
+                }
+            }
+        }
+        shuiji();
+        function xuanran() {
+            var li = document.querySelectorAll('li');
+            nums.forEach((e, ei) => {
+                e.forEach((el, eli) => {
+                    if (el > 0) {
+                        li[ei * e.length + eli].innerText = el;
+                        li[ei * e.length + eli].style.backgroundColor = '#' + (295 * 295 * 160 * el).toString(16).slice(0, 6);
+                    } else {
+                        li[ei * e.length + eli].innerText = '';
+                        li[ei * e.length + eli].style.backgroundColor = '';
+
+                    }
+                })
+            })
+        }
+
+        nums.forEach((e, ei) => {
+            e.forEach((el, eli) => {
+                if (el > 0) {
+                    var li = document.createElement('li')
+                    li.innerText = el;
+                    // li.className = 'you'
+                    li.style.backgroundColor = '#' + (295 * 295 * 160 * el).toString(16).slice(0, 6);
+                    ulDOM.appendChild(li)
+                } else {
+                    var li = document.createElement('li')
+                    ulDOM.appendChild(li)
+                }
+            })
+        })
+
+        // 向上
+        function addT(arr, length, num) {
+            for (var i = 0; i < length; i++) {
+                if (arr[i][num] == arr[i + 1][num]) {
+                    arr[i][num] = arr[i][num] * 2
+                    score += arr[i][num];
+                    arr[i + 1][num] = 0;
+                } else if (arr[i + 1][num] == 0) {
+                    if (i + 2 <= length) {
+                        if (arr[i][num] == arr[i + 2][num]) {
+                            arr[i][num] = arr[i][num] * 2
+                            score += arr[i][num];
+                            arr[i + 2][num] = 0;
+                        }
+                        if (arr[i + 2][num] == 0) {
+                            if (i + 3 <= length) {
+                                if (arr[i][num] == arr[i + 3][num]) {
+                                    arr[i][num] = arr[i][num] * 2
+                                    score += arr[i][num];
+                                    arr[i + 3][num] = 0;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            if (num >= length) { return arr } else {
+                return addT(arr, length, num + 1);
+            }
+        }
+        //下
+        function addB(arr, length, num) {
+            for (var i = length; i > 0; i--) {
+                if (arr[i][num] == arr[i - 1][num]) {
+                    arr[i][num] = arr[i - 1][num] * 2
+                    score += arr[i][num];
+                    arr[i - 1][num] = 0;
+                } else if (arr[i - 1][num] == 0) {
+                    if (i - 2 >= 0) {
+                        if (arr[i][num] == arr[i - 2][num]) {
+                            arr[i][num] = arr[i][num] * 2
+                            score += arr[i][num];
+                            arr[i - 2][num] = 0;
+                        }
+                        if (arr[i - 2][num] == 0) {
+                            if (i - 3 >= 0) {
+                                if (arr[i][num] == arr[i - 3][num]) {
+                                    arr[i][num] = arr[i][num] * 2
+                                    score += arr[i][num];
+                                    arr[i - 3][num] = 0;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            if (num >= length) { return arr } else {
+                return addB(arr, length, num + 1);
+            }
+        }
+
+        //左
+        function 相加L(arr, length, num) {
+            if (arr[num] == arr[num + 1]) {
+                arr[num] = arr[num + 1] * 2
+                score += arr[num];
+                arr[num + 1] = 0
+            } else if (arr[num + 1] == 0) {
+                if (num + 2 <= length) {
+                    if (arr[num] == arr[num + 2]) {
+                        arr[num] = arr[num] * 2
+                        score += arr[num];
+                        arr[num + 2] = 0;
+                    }
+                    if (arr[num + 2] == 0) {
+                        if (num + 3 <= length) {
+                            if (arr[num] == arr[num + 3]) {
+                                arr[num] = arr[num] * 2
+                                score += arr[num];
+                                arr[num + 3] = 0;
+                            }
+                        }
+                    }
+                }
+
+            }
+            if (num >= length) { return arr } else {
+                return 相加L(arr, length, num + 1);
+            }
+        }
+        // 第一个数组 , 第二个 长度 ,第三个 最大下标
+        function 相加R(arr, length, num) {
+            if (arr[num] == arr[num - 1]) {
+                arr[num] = arr[num - 1] * 2
+                score += arr[num];
+                arr[num - 1] = 0
+            } else if (arr[num - 1] == 0) {
+                if (num - 2 >= length) {
+                    if (arr[num] == arr[num - 2]) {
+                        arr[num] = arr[num] * 2
+                        score += arr[num];
+                        arr[num - 2] = 0;
+                    }
+                    if (arr[num - 2] == 0) {
+                        if (num - 3 >= length) {
+                            if (arr[num] == arr[num - 3]) {
+                                arr[num] = arr[num] * 2
+                                score += arr[num];
+                                arr[num - 3] = 0;
+                            }
+                        }
+                    }
+                }
+
+            }
+            if (num <= length) { return arr } else {
+                return 相加R(arr, length, num - 1);
+            }
+        }
+
+
+
+        function shuipin(code) {
+            if (code == 37) {
+                nums.forEach((e, ei) => {
+                    var newArr = 相加L(e, e.length - 1, 0);
+                    var newa = newArr.filter((e) => {
+                        return e != 0;
+                    })
+                    var n = newa.length;
+                    for (let index = 0; index < e.length - n; index++) {
+                        newa.push(0);
+                    }
+                    nums[ei] = newa
+                })
+            }
+            if (code == 39) {
+                nums.forEach((e, ei) => {
+                    var newArr = 相加R(e, 0, e.length - 1);
+                    var newa = newArr.filter((e) => {
+                        return e != 0;
+                    })
+                    var n = newa.length;
+                    for (let index = 0; index < e.length - n; index++) {
+                        newa.unshift(0);
+                    }
+                    nums[ei] = newa
+                })
+            }
+
+        }
+
+        function shuizhi(code) {
+            if (code == 38) {
+                var newa = addT(nums, nums.length - 1, 0);
+                var kelong = [[], [], [], []];
+                newa.forEach((e, ei) => {
+                    var arr1 = [];
+                    for (let index = 0; index < e.length; index++) {
+                        arr1.push(newa[index][ei]);
+                    }
+                    var arr1 = arr1.filter((e) => {
+                        return e != 0;
+                    })
+                    var n = arr1.length;
+                    for (let index = 0; index < e.length - n; index++) {
+                        arr1.push(0);
+                    }
+
+                    for (let jj = 0; jj < arr1.length; jj++) {
+                        kelong[jj][ei] = arr1[jj]
+                    }
+
+                })
+                nums = kelong;
+            }
+
+            if (code == 40) {
+                var newa = addB(nums, nums.length - 1, 0);
+                var kelong = [[], [], [], []];
+                newa.forEach((e, ei) => {
+                    var arr1 = [];
+                    for (let index = 0; index < e.length; index++) {
+                        arr1.push(newa[index][ei]);
+                    }
+                    var arr1 = arr1.filter((e) => {
+                        return e != 0;
+                    })
+                    var n = arr1.length;
+                    for (let index = 0; index < e.length - n; index++) {
+                        arr1.unshift(0);
+                    }
+
+                    for (let jj = 0; jj < arr1.length; jj++) {
+                        kelong[jj][ei] = arr1[jj]
+                    }
+                })
+                nums = kelong;
+            }
+
+
+        }
+
+
+        document.body.onkeydown = function (e) {
+            var e = e || window.event
+            var ulDOM = document.querySelector('ul')
+            raw = [];
+            nums.forEach((e, i) => {
+                raw[i] = e.filter((ee) => { return true });
+            })
+            if (e && e.keyCode === 40) {//下
+                shuizhi(e.keyCode);
+                shuiji()
+                xuanran();
+            }
+            if (e && e.keyCode == 37) {//左
+                shuipin(e.keyCode);
+                shuiji();
+                xuanran();
+            }
+            if (e && e.keyCode == 38) {//上
+                shuizhi(e.keyCode);
+                shuiji();
+                xuanran();
+            }
+            if (e && e.keyCode == 39) {//右
+                shuipin(e.keyCode);
+                shuiji();
+                xuanran();
+            }
+            console.log(score)
+        }
+    </script>
+</body>
+
+</html>

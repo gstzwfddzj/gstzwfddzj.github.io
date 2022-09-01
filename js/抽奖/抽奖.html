@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖</title>
+    <style>
+        .text {
+            width: 400px;
+            height: 50px;
+            text-align: center;
+            /* line-height: 50px; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: aqua;
+            background-color: rgb(247, 43, 25);
+            border: 5px solid rgb(255, 119, 0);
+            box-sizing: border-box;
+            margin: 20px auto;
+            font-size: 23px;
+            border-radius: 5px;
+        }
+
+        .draw {
+            width: 400px;
+            height: 400px;
+            background-color: lightblue;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        li {
+            list-style: none;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(41, 150, 222);
+            margin: 15.5px;
+            display: flex;
+            font-size: 26px;
+            color: aliceblue;
+            justify-content: center;
+            align-items: center;
+            font-family: '楷体';
+            border-radius: 5px;
+        }
+
+        li:nth-child(4) {
+            position: relative;
+            left: 262px;
+        }
+
+        li:nth-child(6) {
+            position: relative;
+            right: 262px;
+        }
+
+        .active {
+            background-color: rgb(170, 0, 255);
+        }
+    </style>
+</head>
+
+<body onselectstart="return false">
+    <div class="div" style="position:fixed;">第十次之内必出大奖!</div>
+    <div class="text">加载中...</div>
+    <div class="draw">
+        <li>手机</li>
+        <li>平板</li>
+        <li>电磁炉</li>
+        <li>洗衣机</li>
+        <li style="background-color:rgba(255, 25, 0, 0.767);border-radius: 5px;font-size: 30px;cursor: pointer;"
+            onclick="cj()">开始</li>
+        <li>谢谢</li>
+        <li>电脑</li>
+        <li>冰箱</li>
+        <li>衣柜</li>
+    </div>
+
+    <script>
+        var title = document.querySelector('.text');
+        var li = document.querySelectorAll('.draw li')
+        li = Array.prototype.slice.call(li);
+        var num = 0;
+        var sum = 0;
+        var keKong = [0,1,2,3,4,0,7,6,5]
+        var time;
+        var ssout;
+        jiasu(1000);
+        function jiasu(ss) {
+            clearInterval(time)
+            time = setInterval(() => {
+                if (num > 0 && num < 5) {
+                    li[num].className = 'active'
+                    li[num - 1].className = '';
+                    if (num == 8) {
+                        num = -1
+                    }
+                    num++;
+                }
+                if (num == 0) {
+                    li[5].className = ''
+                    li[0].className = 'active'
+                    num++
+                }
+                if (num == 5) { num = 9; li[4].className = '' }
+                if (num > 4) {
+                    num--;
+                    li[num].className = 'active'
+                    if (num != 8) {
+                        li[num + 1].className = '';
+                    }
+                    if (num == 5) {
+                        num = 0;
+                    }
+                }
+                document.querySelector('.text').innerText = li.filter((el) => { return el.className })[0].innerText
+            }, ss)
+
+            return time;
+        }
+        var cj = function () {
+            sum++;
+            document.querySelector('.div').innerText = '第十次之内必出大奖! 已抽 '+ sum+' 次'
+            li[4].setAttribute('onclick', '');
+            console.log(num)
+            if(sum%10==0){
+                var t = Math.random()*3000 + 3000
+            }else{
+                var t = (3050 - (keKong[num]*50)) + 3000
+            }
+            jiasu(50)
+
+           
+            setTimeout(() => {
+                clearInterval(time)
+                jiasu(100)
+            }, t-2500)
+            setTimeout(() => {
+                clearInterval(time)
+                jiasu(200)
+            }, t-2000)
+
+            setTimeout(() => {
+                clearInterval(time)
+                jiasu(250)
+            }, t-1500)
+            
+            setTimeout(() => {
+                clearInterval(time)
+                jiasu(300)
+            }, t-1000)
+            
+            setTimeout(() => {
+                clearInterval(time)
+                jiasu(250)
+            }, t-500)
+
+            li[4].style.opacity = '.6';
+            setTimeout(() => {
+                clearInterval(time)
+                ssout = setTimeout(() => {
+                    jiasu(1000)
+                    title.style.color = 'aqua'
+                    title.style.backgroundColor = 'rgb(247, 43, 25)'
+                    li[4].style.opacity = '1';
+                    li[4].setAttribute('onclick', 'cj()')
+                }, 3000)
+                title.style.backgroundColor = '#000'
+                title.style.color = '#fff'
+                title.innerText =='谢谢'?title.innerText='感谢您的抽奖谢谢!!': title.innerText = '恭喜你抽中了' + title.innerText
+            }, t)
+            console.log(t)
+        }
+    </script>
+</body>
+
+</html>

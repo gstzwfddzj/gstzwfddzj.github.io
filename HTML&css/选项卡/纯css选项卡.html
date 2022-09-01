@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="tab">
+        <a href="#a1">1</a>
+        <a href="#a2">2</a>
+        <a href="#a3">3</a>
+        <a href="#a4">4</a>
+    </div>
+    <div class="content">
+        <div id="a1" class="d1">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores tempora, laboriosam
+            ratione eius ad unde vel ea et debitis molestias eos. Quo placeat commodi dicta atque ex quam voluptatem
+            aliquid.
+            <div class="dia">1</div>
+        </div>
+        <div id="a2" class="d1">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias minus beatae, doloribus quis suscipit
+            dicta velit reprehenderit deleniti facere commodi nobis debitis animi asperiores eveniet possimus
+            assumenda iure illum. Rem!
+            <div class="dia">2</div>
+        </div>
+        <div id="a3" class="d1">
+            <div class="dia">3</div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est assumenda ex quo iste tempore! Ab iure,
+            laborum nisi repellendus quasi aspernatur explicabo assumenda tempore hic iusto, consequuntur dicta dolores
+            dolorem?
+        </div>
+        <div id="a4" class="d1">
+            <div class="dia">4</div>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem tempora, rerum exercitationem illo saepe
+            itaque inventore corporis, porro, commodi ipsam quia veritatis sit ducimus provident ipsum laudantium
+            accusantium perferendis! Ullam.
+        </div>
+    </div>
+    <style>
+        body {
+            height: 90vh;
+        }
+
+        .content {
+            width: 80%;
+            max-width: 1200px;
+            /* background-image: linear-gradient(45deg,rgba(255, 255, 255, 0.6) 25%,transparent 25%,transparent 50% , rgba(255, 255, 255, 0.304) 50%,rgba(255, 255, 255, 0.6) 75%, transparent 75%,transparent); */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+            background-size: 100% 2em;
+            background-color: #33cc99;
+            height: 250px;
+        }
+
+        .content>div {
+            position: relative;
+            display: none;
+            box-sizing: border-box;
+            padding: 0px 2em;
+            line-height: 2em;
+            font-size: 1em;
+            text-indent: 2em;
+        }
+
+        .dia {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            top: -40px;
+            background-color: lightcoral;
+            line-height: 40px;
+            text-align: center;
+            text-indent: 0;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .dia:last-child {
+            left: 420px;
+        }
+
+        .content>div:target {
+            display: block;
+        }
+
+        #a1:target div {
+            left: 0;
+        }
+
+        #a2:target div {
+            left: 105px;
+        }
+
+        #a3:target div {
+            left: 209.5px;
+        }
+
+        #a4:target div {
+            left: 314px;
+        }
+
+        .tab a:active {
+            background-color: lightcoral;
+        }
+
+        .tab a {
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            background-color: lightblue;
+            border-radius: 10px 10px 0 0;
+        }
+    </style>
+
+    <script>
+
+
+    </script>
+</body>
+
+</html>

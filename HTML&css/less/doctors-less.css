@@ -1,0 +1,53 @@
+.doctors {
+  padding: 50px 0;
+}
+.doctors * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.doctors .wrapper {
+  width: 1000px;
+  /* background: green; */
+  margin: 0 auto;
+}
+.doctors .wrapper header.title {
+  text-align: center;
+}
+.doctors .wrapper header.title p {
+  color: #c4c4c4;
+}
+.doctors .wrapper header.title h3 {
+  font-size: 36px;
+}
+.doctors .wrapper ul.list {
+  text-align: center;
+  overflow: hidden;
+  padding: 40px 0;
+}
+.doctors .wrapper ul.list li {
+  width: 303px;
+  float: left;
+  margin: 0 15px;
+}
+.doctors .wrapper ul.list li.card img {
+  width: 100%;
+  border-radius: 50%;
+  box-sizing: border-box;
+  /* border: 9px solid #fff; */
+  padding: 10px;
+  background-color: #fff;
+}
+.doctors .wrapper ul.list li.card h3 {
+  margin-top: 20px;
+  font-size: 28px;
+}
+.doctors .wrapper ul.list li.card p {
+  color: #13a2b7;
+  margin: 10px 0;
+}
+.doctors .wrapper ul.list li.card .icons i {
+  margin: 5px;
+  color: #666666;
+}
+/*# sourceMappingURL=./doctors-less.css.map */

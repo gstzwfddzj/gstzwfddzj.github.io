@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        li,
+        ul,
+        p {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            margin-bottom: 1px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        a:active {
+            background-color: '#fff';
+        }
+
+        .lvyou_xs {
+            width: 100%;
+            height: 667px;
+            background-color: #f4f4f4;
+            margin: 0 auto;
+            /* overflow-y: scroll; */
+            overflow: hidden;
+            max-width: 375px;
+            padding-bottom: 50px;
+            position: relative;
+        }
+
+        .seekF {
+            position: fixed;
+            width: 100%;
+            background-color: #fff;
+            max-width: 375px;
+            overflow: hidden;
+        }
+
+        .seek {
+            width: calc(100% - 24px);
+            /* width: 100%; */
+            height: 32px;
+            border: 1.8px solid #0086f6;
+            box-sizing: border-box;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            color: #999;
+            font-size: 15px;
+            /* margin-left: 16px; */
+            text-indent: 6px;
+            font-weight: 400;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            margin: 12px 6px 12px 12px;
+            background-color: #fff;
+        }
+
+        .seek i {
+            font-size: 20px;
+            text-indent: 12px;
+        }
+
+        .nav img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav {
+            width: calc(100% - 24px);
+            margin: 62px 12px 2px 12px;
+            font-size: 12px;
+            line-height: 15px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 184px;
+        }
+
+        .nav ul {
+            width: calc(20% - 1px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav li {
+            background-color: #fff5f1;
+            height: 33.33%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav ul:nth-child(2) li {
+            background-color: #eff9ff;
+        }
+
+        .nav ul:nth-child(3) li {
+            background-color: #f2f5ff;
+        }
+
+        .nav ul:nth-child(4) li {
+            background-color: #ecfcf8;
+        }
+
+        .nav ul:nth-child(5) li {
+            background-color: #fff9f2;
+        }
+
+        .nav>ul>li:first-child a p {
+            color: #fff;
+        }
+
+        .nav ul:nth-child(1) li:first-child {
+            background-color: #fa6a53;
+        }
+
+        .nav ul:nth-child(2) li:first-child {
+            background-color: #4ba7fa;
+        }
+
+        .nav ul:nth-child(3) li:first-child {
+            background-color: #6292ff;
+        }
+
+        .nav ul:nth-child(4) li:first-child {
+            background-color: #47d2b4;
+        }
+
+        .nav ul:nth-child(5) li:first-child {
+            background-color: #ff963e;
+        }
+
+        .lvyou_xs>.dot {
+            width: 100%;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .lvyou_xs>.dot span {
+            display: inline-block;
+            font-size: 0;
+            width: 4px;
+            height: 4px;
+            box-sizing: border-box;
+            background-color: rgba(153, 153, 153, 0.696);
+            border-radius: 50%;
+            margin: 0 2px;
+            padding-top: 2px;
+        }
+
+        .lvyou_xs>.dot span.one {
+            width: 14px;
+            height: 4px;
+            border-radius: 14px;
+            background-color: #0086f6;
+            box-sizing: border-box;
+        }
+
+
+
+
+        .content {
+            width: calc(100% - 24px);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .live {
+            width: calc(50% - 4px);
+            height: 148px;
+            background-color: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+            padding: 8px;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+
+
+        .top {
+            height: 20px;
+            font-size: 0px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+
+        .live>.top>span {
+            font-size: 10px;
+            box-sizing: border-box;
+            background-color: #ffebe3;
+            color: #ff5e2a;
+            white-space: nowrap;
+            transform: scale(0.9);
+            
+        }
+
+        .top img {
+            width: 73px;
+            height: 20px;
+        }
+
+        .live .wrap {
+            width: 160px;
+            height: 126px;
+            margin: 0 auto;
+            position: relative;
+            padding: 5px 0;
+            overflow: hidden;
+        }
+
+
+        .live .wrap>.dot {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 20;
+        }
+
+        .live .wrap .dot>span {
+            float: left;
+            display: block;
+            width: 4px;
+            height: 4px;
+            border-radius: 10px;
+            background-color: #333;
+            box-sizing: border-box;
+            margin: 0 2px;
+        }
+
+
+        .live .wrap .dot>span:first-child {
+            background-color: #ecfcf8;
+            width: 14px;
+            animation: yidons1 6s infinite;
+        }
+
+        @keyframes yidons1 {
+            0% {
+                width: 14px;
+                background-color: #ecfcf8;
+            }
+
+            30% {
+                width: 14px;
+                background-color: #ecfcf8;
+            }
+
+            33% {
+                width: 4px;
+                background-color: #333;
+            }
+
+            96% {
+                width: 4px;
+                background-color: #333;
+            }
+
+        }
+
+        .live .wrap .dot>span:nth-child(2) {
+            animation: yidons2 6s infinite;
+        }
+
+        @keyframes yidons2 {
+            0% {
+                width: 4px;
+                background-color: #333;
+            }
+
+            30% {
+                width: 4px;
+                background-color: #333;
+            }
+
+            33% {
+                width: 14px;
+                background-color: #ecfcf8;
+            }
+
+            63% {
+                width: 14px;
+                background-color: #ecfcf8;
+            }
+
+            66% {
+                width: 4px;
+                background-color: #333;
+            }
+
+            96% {
+                width: 4px;
+                background-color: #333;
+            }
+
+        }
+
+        .live .wrap .dot>span:nth-child(3) {
+            animation: yidons3 6s infinite;
+        }
+
+        @keyframes yidons3 {
+            0% {
+                width: 4px;
+                background-color: #333;
+            }
+
+            64% {
+                width: 4px;
+                background-color: #333;
+            }
+
+            66% {
+                width: 14px;
+                background-color: #ecfcf8;
+            }
+
+            99% {
+                width: 14px;
+                background-color: #ecfcf8;
+            }
+
+        }
+
+        /*  */
+        .live .imgs {
+            position: absolute;
+            width: 100%;
+            z-index: 0;
+            display: flex;
+            animation: yidon 6s infinite;
+        }
+
+        .live .imgs img {
+            height: 160px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes yidon {
+            0% {
+                margin-left: 0px;
+            }
+
+            30% {
+                margin-left: 0px;
+            }
+
+            33% {
+                margin-left: -156px;
+            }
+
+            63% {
+                margin-left: -156px;
+            }
+
+            66% {
+                margin-left: -312px;
+            }
+
+            96% {
+                margin-left: -312px;
+            }
+
+        }
+
+        .live .imgs img:first-child {
+            margin-left: 0px;
+        }
+
+        .imgs .dange {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .imgs .dange .img img {
+            width: 100%;
+            height: 160px;
+            flex-shrink: 0;
+        }
+
+        .imgs .dange .img {
+            height: 80px;
+            overflow: hidden;
+            width: 100%;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .live .imgs .dange .img .text {
+            width: 100%;
+            background-color: rgba(51, 51, 51, 0.427);
+            position: absolute;
+            bottom: 0;
+            font-size: 12px;
+            color: #ecfcf8;
+            text-indent: 1em;
+        }
+
+        .live .dange .img>span {
+            position: absolute;
+            font-size: 12px;
+            color: #ecfcf8;
+            background-color: rgba(51, 51, 51, 0.514);
+            left: 0;
+            top: 0;
+            /* z-index: 0; */
+        }
+
+        .live .wrap .sum {
+            color: red;
+            font-size: 6px;
+            margin: 6px 0;
+        }
+
+        .live .wrap .sum>span {
+            font-size: 16px;
+        }
+
+
+
+
+        .jinxuan {
+            width: calc(50% - 4px);
+            overflow: hidden;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .jinxuan .top {
+            width: 100%;
+            height: 20px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .jinxuan .top>span {
+            /* width: 100px; */
+            font-size: 10px;
+            background-color: #fdefd2;
+            text-align: right;
+            color: #ae6e15;
+            display: inline-block;
+            height: 16px;
+        }
+
+        .jinxuan .top img {
+            width: 73px;
+            height: 20px;
+        }
+
+        .jinxuan img {
+            height: 84px;
+            border-radius: 5px;
+        }
+
+        .jinxuan .imgs {
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .jinxuan .imgs .img1,
+        .jinxuan .imgs .img2 {
+            width: calc(100% / 2 - 4px);
+            position: relative;
+        }
+
+        .jinxuan .imgs span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #e6c591;
+            font-size: 10px;
+            text-align: center;
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        .jinxuan .imgs p {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            font-size: 10px;
+        }
+
+        .banner {
+            width: calc(100% - 24px);
+            padding: 20px 12px;
+        }
+
+        .banner img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .lianxi{
+            width: calc(100% -24px);
+            margin: 0 12px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .lianxi div{
+            width: 100px;
+            height: 30px;
+            border:1px solid #333;
+            border-radius: 5px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 30px;
+            font-size: 12px;
+        }
+        .lianxi i{
+            display: inline-block;
+            padding: 0 5px;
+        }
+        .wzdt{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+            color: #333;
+            font-size: 10px;
+        }
+        .wzdt span{
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .lvyou_xs>p{
+            text-align: center;
+            color: #333;
+            font-size: 10px;
+            padding-bottom: 50px;
+        }
+        .lvyou_xs>p span{
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .nav_bottom{
+            width: 375px;
+            height: 49px;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-evenly;
+            position: fixed;
+            bottom: 0;
+        }
+        .nav_bottom a{
+            width: 25%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            /* padding: 10px; */
+            font-size: 5px;
+        }
+        .nav_bottom a:first-child> span:nth-child(1){
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            /* background-color: #0086f6; */
+            background-image: url(./Images/bottomNav.png);
+            background-repeat: no-repeat;
+            background-size: 38px;
+        }
+        .nav_bottom a:nth-child(2)> span:nth-child(1){
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            background-image: url(./Images/bottomNav.png);
+            background-repeat: no-repeat;
+            background-position: 0 -38px;
+            background-size: 38px;
+        }
+        .nav_bottom a:nth-child(3)> span:nth-child(1){
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            background-image: url(./Images/bottomNav.png);
+            background-repeat: no-repeat;
+            background-size: 38px;
+            background-position: 0 -76px;
+        }
+        .nav_bottom a:nth-child(4)> span:nth-child(1){
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            background-image: url(./Images/bottomNav.png);
+            background-repeat: no-repeat;
+            background-size: 38px;
+            background-position: 0 -114px;
+        }
+     
+        
+
+    </style>
+</head>
+
+<body onselectstart="return false">
+    <div class="lvyou_xs">
+        <div class="seekF">
+            <div class="seek">
+                <i class="fa fa-search"></i>
+                <span>搜索:目的地/酒店/景点/航班号</span>
+            </div>
+        </div>
+
+        <div class="nav">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="./Images/jiudian.png" alt="">
+                        <p>酒店</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/minzai.png" alt="">
+                        <p>民宿/客栈</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/tejia.png" alt="">
+                        <p>特价/爆款</p>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="./Images/feiji.png" alt="">
+                        <p>机票</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/ji+jiu.png" alt="">
+                        <p>机+酒</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/jieson.png" alt="">
+                        <p>接送机/包车</p>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="./Images/huoche.png" alt="">
+                        <p>火车票</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/qiche.png" alt="">
+                        <p>汽车/船票</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/zhuche.png" alt="">
+                        <p>租车</p>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="./Images/lvyou.png" alt="">
+                        <p>旅游</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/menpiao.png" alt="">
+                        <p>门票/活动</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/zhoubian.png" alt="">
+                        <p>周边游</p>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="./Images/gonlue.png" alt="">
+                        <p>攻略/景点</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/meishi.png" alt="">
+                        <p>美食</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./Images/gouwu.png" alt="">
+                        <p>购物/免税</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="dot">
+            <span class="one"></span>
+            <span></span>
+        </div>
+
+        <div class="content">
+            <div class="live">
+                <div class="top">
+                    <img src="./Images/tejiazhibo.png" alt="">
+                    <span>特价好货直播中</span>
+                </div>
+                <div class="wrap">
+                    <div class="imgs">
+                        <div class="dange">
+                            <div class="img">
+                                <span>酒店套餐</span>
+                                <img src="./Images/酒店.jpg" alt="">
+                                <div class="text">杭州中维酒店</div>
+                            </div>
+                            <div class="sum">
+                                ￥<span>666</span>
+                            </div>
+                        </div>
+                        <div class="dange">
+                            <div class="img">
+                                <span>酒店套餐</span>
+                                <img src="./Images/豪宅.jpg" alt="">
+                                <div class="text">杭州湖</div>
+                            </div>
+                            <div class="sum">
+                                ￥<span>1266</span>
+                            </div>
+                        </div>
+                        <div class="dange">
+                            <div class="img">
+                                <span>酒店套餐</span>
+                                <img src="./Images/苏州.jpg" alt="">
+                                <div class="text">苏州豪华酒店</div>
+                            </div>
+                            <div class="sum">
+                                ￥<span>899</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="dot">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="jinxuan">
+                <div class="top">
+                    <img src="./Images/携程精选.png" alt="">
+                    <span>权威排行榜</span>
+                </div>
+                <div class="imgs">
+                    <div class="img1">
+                        <span>上海</span>
+                        <img src="./Images/10大.jpg" alt="">
+                        <p>上海10大著名阿斯顿</p>
+                    </div>
+                    <div class="img2">
+                        <span>上海</span>
+                        <img src="./Images/亲子.webp" alt="">
+                        <p>上海亲子乐呵呵</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="banner">
+            <img src="./Images/banner.jpg" alt="">
+        </div>
+
+        <div class="lianxi">
+            <div class="left">
+                <i class="fa fa-phone"></i><span>电话预定</span>
+            </div>
+
+            <div class="right">
+                <i class="fa fa-download"></i><span>下载携程</span>
+            </div>
+        </div>
+        
+        <div class="wzdt">
+            网站地图<span>|</span>电脑版
+        </div>
+        
+        <p>©2022携程旅行<span>沪ICP备08023580号</span></p>
+
+        <div class="nav_bottom">
+            <a href="#">
+                <span></span>
+                <span>首页</span>
+            </a>
+            <a href="#">
+                <span></span>
+                <span>社区</span>
+            </a>
+            <a href="#">
+                <span></span>
+                <span>消息</span>
+            </a>
+            <a href="#">
+                <span></span>
+                <span>我的</span>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

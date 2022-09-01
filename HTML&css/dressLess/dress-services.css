@@ -1,0 +1,121 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+h1 span {
+  font-weight: 400;
+}
+.services {
+  width: 90%;
+  margin: 0 auto;
+}
+.services * {
+  margin: 0;
+  padding: 0;
+}
+.services::after,
+.services::before {
+  content: "";
+  display: table;
+}
+.services .title {
+  font-size: 26px;
+  text-align: center;
+  margin: 50px 0;
+}
+.services ul {
+  max-width: 1197px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin: 0 auto;
+}
+.services ul::after,
+.services ul::before {
+  content: "";
+  display: table;
+  clear: both;
+}
+.services ul li {
+  position: relative;
+  width: calc(25% - 30px);
+  float: left;
+  border-radius: 10px;
+  margin: 0 15px;
+  font-size: 0;
+  overflow: hidden;
+}
+.services ul li:hover .img-hover {
+  transform: scale(1);
+}
+.services ul li:hover i {
+  opacity: 0;
+}
+.services ul li .img-hover {
+  transform: scale(0);
+  transition: all 0.5s;
+  position: absolute;
+  top: 0;
+  color: aliceblue;
+  background-color: #e63835ab;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+.services ul li .img-hover .content {
+  box-sizing: border-box;
+  padding: 10%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: table;
+  margin: auto 0;
+}
+.services ul li .img-hover .content h1 {
+  font-size: 20px;
+  margin: 20px 0;
+}
+.services ul li .img-hover .content p {
+  line-height: 26px;
+  font-size: 14px;
+  max-height: 78px;
+  overflow: hidden;
+}
+.services ul li img {
+  border-radius: 10px;
+  width: 100%;
+}
+.services ul li i {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 12%;
+  height: 9%;
+  text-align: center;
+  line-height: 30px;
+  background-color: #f54748;
+  font-size: 20px;
+  color: lightcyan;
+  opacity: 1;
+  transition: all 0.5s;
+}
+.services .btn {
+  width: 230px;
+  height: 55px;
+  background-color: #f54748;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 55px;
+  font-size: 18px;
+  margin: 50px auto;
+  transition: all 3s;
+}
+.services .btn:hover {
+  background-color: #e87a35;
+  transition: all 0.3s;
+}
+.services .btn a {
+  color: aliceblue;
+  text-decoration: none;
+}

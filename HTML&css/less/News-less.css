@@ -1,0 +1,84 @@
+.news {
+  padding: 50px 0;
+}
+.news * {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
+.news .wrapper {
+  width: 1000px;
+  margin: 0 auto;
+}
+.news .wrapper header {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.news .wrapper header div {
+  float: left;
+}
+.news .wrapper header div p {
+  font-size: 12px;
+  color: #666666;
+}
+.news .wrapper header div h3 {
+  font-size: 32px;
+}
+.news .wrapper header button {
+  float: right;
+  background-color: transparent;
+  border: 2px solid lightseagreen;
+  width: 180px;
+  border-radius: 5px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #363636;
+  text-transform: uppercase;
+  /* 字体大写 */
+  height: 45px;
+}
+.news .wrapper ul.list {
+  overflow: hidden;
+}
+.news .wrapper ul.list .card {
+  width: 33.33%;
+  float: left;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.news .wrapper ul.list .card li {
+  box-shadow: 1px 1px 10px 2px #cacaca;
+  box-sizing: border-box;
+  padding: 10px 10px;
+}
+.news .wrapper ul.list .card li a {
+  color: #2a2a2a;
+  font-size: 17px;
+  font-weight: bold;
+}
+.news .wrapper ul.list .card li p {
+  color: #666666;
+  font-size: 14px;
+  margin: 10px 0;
+}
+.news .wrapper ul.list .card li div.author {
+  line-height: 40px;
+}
+.news .wrapper ul.list .card li div.author img {
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.news .wrapper ul.list .card li div.author span {
+  margin-left: 10px;
+  vertical-align: middle;
+  color: #989898;
+  font-size: 12px;
+}
+.news .wrapper ul.list .card li:hover {
+  box-shadow: 1px 1px 15px 4px rgba(220, 220, 220, 0.6);
+}
+.news .wrapper ul.list .card li:hover a {
+  text-decoration: underline;
+}
+/*# sourceMappingURL=./News-less.css.map */
