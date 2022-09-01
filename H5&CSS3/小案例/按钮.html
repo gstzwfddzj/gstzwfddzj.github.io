@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>按钮</title>
+    <style>
+        div {
+            display: table;
+            background-color: #e1e1e1;
+            color: #696969;
+            font-size: 18px;
+            padding: 10px 20px;
+            line-height: 29px;
+            transition: all .3s;
+            margin: 10px;
+            cursor: pointer;
+            transform: scale(1);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grow">grow</div>
+    <div class="shrink">shrink</div>
+    <div class="pulse">Pulse</div>
+    <div class="pulse_grow">Pulse Groww</div>
+    <div class="pulse_shrink">Pulse Shrink</div>
+    <div class="push">Push</div>
+    <div class="pop">Pop</div>
+    <div class="bounce_in">Bounce In</div>
+    <div class="bounce_out">Bounce Out</div>
+    <div class="rotate">Rotate</div>
+    <div class="grow_rotate">Grow Rotate</div>
+    <div class="float">Float</div>
+    <div class="shink">Shink</div>
+    <div class="bob">Bob</div>
+    <div class="hang">Hang</div>
+    <div class="skew">Skew</div>
+    <div class="skew_forward">Skew Forward</div>
+    <div class="skew_backward">Skew Backward</div>
+    <div class="wobble_horizontal">Wobble Horizontal</div>
+    <div class="wobble_vertical">Wobble Vertical</div>
+    <div class="wobble_to_bottom_right">Wobble To Bottom Right</div>
+    <div class="wobble_to_top_right">Wobble To Top Right</div>
+    <div class="wobble_top">Wobble Top </div>
+    <div class="wobble_bottom">Wobble Bottom</div>
+    <div class="wobble_skew">Wobble Skew</div>
+    <div class="buzz">Buzz</div>
+    <div class="buzz_out">Buzz Out</div>
+    <div class="forward">Forward</div>
+    <div class="backward">Backward</div>
+
+    
+    <div style="width: 100vw;background-color:#cf7b7b;color:#e1e1e1;">下面为背景阶端</div>
+
+    <div class="fade">Fade</div>
+    <div class="back_pulse">Back Pulse</div>
+    <div class="sweep_to_right">Sweep To Right</div>
+    
+    <style>
+        .sweep_to_right:hover{color: #fff;}
+        .sweep_to_right:hover ::after{
+             width: 100%;
+        }
+        .sweep_to_right{
+            position: relative;
+            z-index: 0;
+        }
+        .sweep_to_right::before{
+            content: '';
+            position: absolute;
+            display: block;
+            transition: all .3s;
+            background-color: #2098d1;
+            width: 100%;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            height: 100%;
+        }
+        @keyframes back_pulse{
+            0%{
+                background-color: #2098d1;
+            }
+            50%{
+                background-color: #2099d1b6;
+            }
+            100%{
+                background-color: #2098d1;
+            }
+        }
+        .back_pulse:hover{
+            color: #ffffff;
+            background-color: #2098d1;
+            animation: back_pulse 1s .3s infinite linear;
+        }
+        .fade:hover{
+            background-color: #2098d1;
+            color: #ffffff;
+        }
+        
+        /* 上面�? 背景 */
+        .backward:hover{transform: translateX(-10px);}
+        .forward:hover{
+            transform: translateX(10px);
+        }
+        @keyframes buzz_out {
+            0%{
+                transform: rotate(0deg);
+            }
+            25%{
+                transform: rotate(5deg);
+            }
+            50%{
+            }
+            75%{
+                transform: rotate(-5deg);
+            }
+            100%{
+                transform: rotate(0deg);
+            }
+        }
+
+        .buzz_out:hover {
+            animation: buzz_out .2s 3 linear;
+            transform-origin: 50% 100%;
+        }
+        @keyframes buzz {
+            0%{
+                transform: rotate(0deg);
+            }
+            25%{
+                transform: rotate(5deg);
+            }
+            50%{
+            }
+            75%{
+                transform: rotate(-5deg);
+            }
+            100%{
+                transform: rotate(0deg);
+            }
+        }
+
+        .buzz:hover {
+            animation: buzz .2s infinite linear;
+            transform-origin: 50% 100%;
+        }
+        @keyframes wobble_skew {
+            0% {
+                transform: skew(0deg);
+            }
+
+            30% {
+                transform: skew(-20deg);
+            }
+
+            45% {
+                transform: skew(10deg);
+            }
+
+            60% {
+                transform: skew(-10deg);
+            }
+
+            80% {
+                transform: skew(5deg);
+            }
+
+            100% {
+                transform: skew(0deg);
+            }
+        }
+
+        .wobble_skew:hover {
+            animation: wobble_skew .8s 1 linear;
+        }
+        @keyframes wobble_bottom {
+            0% {
+                transform: skew(0deg);
+            }
+
+            30% {
+                transform: skew(-20deg);
+            }
+
+            45% {
+                transform: skew(10deg);
+            }
+
+            60% {
+                transform: skew(-10deg);
+            }
+
+            80% {
+                transform: skew(5deg);
+            }
+
+            100% {
+                transform: skew(0deg);
+            }
+        }
+
+        .wobble_bottom:hover {
+            animation: wobble_bottom .8s 1 linear;
+        }
+
+        .wobble_bottom {
+            transform-origin: 100% 0%;
+        }
+        @keyframes wobble_top {
+            0% {
+                transform: skew(0deg);
+            }
+
+            30% {
+                transform: skew(-20deg);
+            }
+
+            45% {
+                transform: skew(10deg);
+            }
+
+            60% {
+                transform: skew(-10deg);
+            }
+
+            80% {
+                transform: skew(5deg);
+            }
+
+            100% {
+                transform: skew(0deg);
+            }
+        }
+
+        .wobble_top:hover {
+            animation: wobble_top .8s 1 linear;
+        }
+
+        .wobble_top {
+            transform-origin: 0 100%;
+        }
+
+        @keyframes wobble_to_top_right {
+            0% {
+                transform: translateX(0px) translateY(0px);
+            }
+
+            30% {
+                transform: translateX(10px) translateY(-10px);
+            }
+
+            45% {
+                transform: translateX(-5px) translateY(5px);
+            }
+
+            60% {
+                transform: translateY(-3px) translateX(3px);
+            }
+
+            80% {
+                transform: translateX(-3px) translateY(3px);
+            }
+
+            100% {
+                transform: translateX(0px) translateY(0px);
+            }
+        }
+
+        .wobble_to_top_right:hover {
+            animation: wobble_to_top_right .8s 1 linear;
+        }
+
+        @keyframes wobble_to_bottom_right {
+            0% {
+                transform: translateX(0px) translateY(0px);
+            }
+
+            30% {
+                transform: translateX(10px) translateY(10px);
+            }
+
+            45% {
+                transform: translateX(-5px) translateY(-5px);
+            }
+
+            60% {
+                transform: translateY(3px) translateX(3px);
+            }
+
+            80% {
+                transform: translateX(-3px) translateY(-3px);
+            }
+
+            100% {
+                transform: translateX(0px) translateY(0px);
+            }
+        }
+
+        .wobble_to_bottom_right:hover {
+            animation: wobble_to_bottom_right .8s 1 linear;
+        }
+
+        @keyframes wobble_vertical {
+            0% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(10px);
+            }
+
+            45% {
+                transform: translateY(-5px);
+            }
+
+            60% {
+                transform: translateY(3px);
+            }
+
+            80% {
+                transform: translateY(-3px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .wobble_vertical:hover {
+            animation: wobble_vertical .8s 1 linear;
+        }
+
+        @keyframes wobble_horizontal {
+            0% {
+                transform: translateX(0);
+            }
+
+            30% {
+                transform: translateX(10px);
+            }
+
+            40% {
+                transform: translateX(-7px);
+            }
+
+            60% {
+                transform: translateX(5px);
+            }
+
+            80% {
+                transform: translateX(-3px);
+            }
+
+            100% {
+                transform: translateX(0px);
+            }
+        }
+
+        .wobble_horizontal:hover {
+            animation: wobble_horizontal .8s 1 linear;
+        }
+
+        .skew_backward:hover {
+            transform: skew(10deg);
+        }
+
+        .skew_backward {
+            transform-origin: 0 100%;
+        }
+
+        .skew_forward:hover {
+            transform: skew(-10deg);
+        }
+
+        .skew_forward {
+            transform-origin: 0 100%;
+        }
+
+        .skew:hover {
+            transform: skew(-10deg);
+        }
+
+        @keyframes hang {
+            0% {
+                transform: translateY(5px);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+
+            100% {
+                transform: translateY(5px);
+            }
+        }
+
+        .hang:hover {
+            transform: translateY(5px);
+            animation: hang .9s .3s infinite linear;
+        }
+
+        @keyframes bob {
+            0% {
+                transform: translateY(-5px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .bob:hover {
+            transform: translateY(-5px);
+            animation: bob .9s .3s infinite linear;
+        }
+
+        .shink:hover {
+            transform: translateY(10px);
+        }
+
+        .float:hover {
+            transform: translateY(-10px);
+        }
+
+        .grow_rotate:hover {
+            transform: rotate(10deg) scale(1.2);
+        }
+
+        .rotate:hover {
+            transform: rotate(10deg);
+        }
+
+        @keyframes bounce_out {
+            0% {
+                transform: scale(1);
+            }
+
+            33% {
+                transform: scale(0.8);
+            }
+
+            66% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                transform: scale(0.8);
+            }
+        }
+
+        .bounce_out:hover {
+            animation: bounce_out .5s 1 linear forwards;
+        }
+
+        @keyframes bounce_in {
+            0% {
+                transform: scale(1);
+            }
+
+            33% {
+                transform: scale(1.2);
+            }
+
+            66% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        .bounce_in:hover {
+            animation: bounce_in .5s 1 linear forwards;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pop:hover {
+            animation: pop .3s 1 linear;
+        }
+
+        @keyframes push {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(0.8);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .push:hover {
+            animation: push .3s 1 linear;
+        }
+
+        @keyframes pulse_shrink {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse_shrink:hover {
+            animation: pulse_shrink .5s infinite linear;
+        }
+
+        @keyframes pulse_grow {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse_grow:hover {
+            animation: pulse_grow .5s infinite linear;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1);
+            }
+
+            75% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse:hover {
+            animation: pulse 1s infinite linear;
+        }
+
+        .grow:hover {
+            transform: scale(1.1);
+        }
+
+        .shrink:hover {
+            transform: scale(0.9);
+        }
+
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 30px;
+            margin: 0;
+        }
+    </style>
+    <!-- 瓒呯櫧 GDK -> 超白  -->
+</body>
+
+</html>

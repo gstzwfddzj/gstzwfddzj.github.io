@@ -148,8 +148,6 @@
 
         function filtrate({ ti, di, jin, shou, pai }) {
             var url = 'https://apis.netstart.cn/bcomic/ClassPage?styleId=' + arguments[0][0] + '&areaId=' + arguments[0][1] + '&isFinish=' + arguments[0][2] + '&order=' + arguments[0][4] + '&pageNum=' + 1 + '&pageSize=' + 39 + '&isFree=' + arguments[0][3]
-            // console.log(url);
-
             $.get(url, function (data) {
                 console.log(data.data);
                 if (data.data == 0) {
@@ -174,7 +172,7 @@
                 var a = {}
                 $('.active').each((i, e) => {
                     a[i] = $(e).attr('data-id')
-                    console.log(a);
+                    // console.log(a);
                 })
                 filtrate(a)
 

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣杯</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100%;
+        }
+
+        header {
+            width: 100%;
+            background-color: lightgoldenrodyellow;
+            height: 300px;
+        }
+
+        .con {
+            margin: 0 200px;
+            height: 300px;
+            width: 80%;
+        }
+
+        .con::before {
+            content: '';
+            display: table;
+            clear: both;
+        }
+        .min{
+            width: 100%;
+            float: left;
+            background-color: green;
+        }
+        .wrap {
+            background-color: lightblue;
+            float: left;
+            margin: 0 200px;
+            min-height: 300px;
+        }
+
+        .left {
+            width: 200px;
+            background-color: lightcoral;
+            float: left;
+            height: 300px;
+            margin-left: -100%;
+        }
+
+        .right {
+            width: 200px;
+            background-color: lightsalmon;
+            float: left;
+            height: 300px;
+            margin-left: -200px;
+        }
+
+        footer {
+            clear: both;
+            width: 100%;
+            background-color: lightslategrey;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        header
+    </header>
+
+    <div class="con">
+
+        <div class="min">
+            <div class="wrap">
+                content
+               ，极里郭交苟谓瞠张本全何逝全，巴为出的在洪普者下大介反无，程起氏事尹绛身首帝我亲之兴即与孔招是，变得互苟
+            </div>
+        </div>
+
+        <div class="left">left</div>
+
+        <div class="right">right</div>
+    </div>
+    <footer>
+        footer
+    </footer>
+</body>
+
+</html>

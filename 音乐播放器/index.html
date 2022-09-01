@@ -78,12 +78,12 @@
             },
         ]
 
-        if(localStorage.getItem('data')){
+        if (localStorage.getItem('data')) {
             data = JSON.parse(localStorage.getItem('data'))
         }
-        var audio,index;
+        var audio, index;
 
-        localStorage.getItem('playIndex')?index=localStorage.getItem('playIndex'):index=0
+        localStorage.getItem('playIndex') ? index = localStorage.getItem('playIndex') : index = 0
 
         function 转换时间(date) {
             return (parseInt(+date / 60) < 10 ? '0' + parseInt(+date / 60) : parseInt(+date / 60)) + ':' + (parseInt(+date % 60) < 10 ? '0' + parseInt(date % 60) : parseInt(date % 60))
@@ -96,7 +96,7 @@
             $('input').val(audio.currentTime)
             $('.down span').eq(0).text(转换时间(audio.currentTime))
             $('.ing>i').css('width', + $('input').val() / $('input').attr('max') * 100 + '%')
-            localStorage.setItem('playIndex',index)
+            localStorage.setItem('playIndex', index)
         }
         function add(num) {
             $('.wrap .up .img:last-of-type').css({
@@ -207,10 +207,32 @@
 
 
 
-
-
-
-
+        audio.onerror = function () {
+            alert("Error! 出错了,试一下切换下一首或者刷新页面");
+        };
+        audio.onprogress = function (e) {
+            console.log('还在下载...')
+        }
+        audio.onwaiting = function (e) {
+            console.log('缓存中...请稍等..')
+            var aaa = document.createElement('div')
+            aaa.innerHTML = '缓存中...请稍等..'
+            aaa.style = 'position: fixed;top:0px;transition: all 1s linear;opacity:1;'
+            console.log(aaa);
+            $('body').append(aaa)
+            setTimeout(()=>{
+                aaa.style.opacity = '0'
+            },1000)
+            setTimeout(()=>{
+                $(aaa).remove()
+            },2000)
+        }
+        audio.onplay = function (e) {
+            console.log('ok');
+        }
+        audio.onloadstart =function (){
+            console.log('正在查找音频');
+        }
         // ended	返回音频/视频的播放是否已结束。
         audio.onended = function (e) {
             $('#next').click()

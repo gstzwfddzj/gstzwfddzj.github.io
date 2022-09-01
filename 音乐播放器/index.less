@@ -88,6 +88,23 @@ body {
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    width: 96%;
+    .up {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      .control {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
 }
 @keyframes fangda {
   0% {
@@ -112,6 +129,7 @@ body {
     transform: scale(1);
     opacity: 1;
   }
+  
 }
 
 .up {
@@ -120,6 +138,7 @@ body {
   display: flex;
   justify-content: right;
   > div {
+    width: 90%;
     position: relative;
     .img {
       width: 300px;
@@ -130,6 +149,11 @@ body {
       position: relative;
       background-size: cover;
 
+      @media screen and (max-width: 768px) {
+        width:100%;
+        height: 200px;
+        margin-bottom: 50px;
+      }
       &::before {
         content: "";
         background-image: inherit;
@@ -218,7 +242,7 @@ body {
         z-index: -1;
         border-radius: 50%;
       }
-      @media (hover: hover) {
+      @media screen and (min-width: 768px) {
         &:hover {
           color: #532ab9;
 

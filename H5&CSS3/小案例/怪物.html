@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>怪物</title>
+</head>
+<body>
+    <span>------------------------------</span><div class="wrap">
+
+    </div>
+    <style>
+        @keyframes mos{
+            0%{
+                background-position-x:0 ;
+                background-position-y:0 ;
+                margin-left: 0;
+                margin-top: 0;
+            }
+            25%{
+                margin-top:160px ;
+                margin-left: 0;
+                background-position-x:-320px ;
+                background-position-y: 0;
+            }
+            25.01%{
+                margin-top:160px ;
+                margin-left: 0;
+                background-position-x:0 ;
+                
+                background-position-y: -192px;
+            }
+            50%{
+                margin-top:160px ;
+                margin-left: 160px;
+                background-position-x:-320px ;
+                background-position-y: -192px;
+            }
+            50.01%{
+                margin-top:160px ;
+                background-position-x:0 ;
+                background-position-y: -288px;
+            }
+            75%{
+                margin-top:0px ;
+                margin-left: 160px;
+                background-position-x:-320px ;
+                background-position-y: -288px;
+            }
+            75.01%{
+                background-position-x:0 ;
+                background-position-y:-96px ;
+            }
+            100%{
+                background-position-x:-320px ;
+                background-position-y:-96px ;
+            }
+            
+        }
+        .wrap{
+            width: 80px;
+            height: 96px;
+            background-image: url('./image/monster.png');
+            background-repeat: no-repeat;
+            animation: mos 8s steps(4,end) infinite;
+        }
+        span{
+            position: relative;
+            top: 80px;
+            z-index: -10;
+        }
+        body{
+            padding: 160px;
+        }
+    </style>
+</body>
+</html>
