@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="./swiper/swiper-bundle.min.css" />
+  <link rel="shortcut icon" href="./image/logo.png" type="image/x-icon">
+  <!-- Demo styles -->
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      background-color: #000;
+      margin: 0;
+      padding: 0;
+      z-index: -1;
+      min-width: 768px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      display: block;
+      animation: bb 1s 1 forwards linear;
+    }
+
+    @keyframes bb {
+      0% {
+        opacity: 0.9;
+      }
+
+      100% {
+        opacity: 0;
+        z-index: 0;
+      }
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      /* background: #fff; */
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .bg1 {
+      width: 100%;
+      height: 100%;
+      background-image: url('./image/01.jpg');
+      background-position: center;
+      background-size: cover;
+    }
+
+    .bg2 {
+      width: 100%;
+      height: 100%;
+    }
+
+    .bg2 video,
+    .bg3 video,
+    .bg4 video,
+    .bg5 video {
+      width: 100%;
+      position: relative;
+    }
+
+    .swiper-pagination>span {
+      background-color: rgb(255, 255, 255);
+    }
+
+    .fxd {
+      position: fixed;
+      width: 100vw;
+      height: 50px;
+      background-color: rgba(0, 0, 0, 0);
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .logo {
+      width: 240px;
+      height: 50px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url('./image/极速浏览器.png');
+    }
+
+    .fxd .wrap {
+      width: 280px;
+      height: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+    }
+
+    .fxd .wrap a {
+      color: #b4b4b4;
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+    h1,
+    h2,
+    p {
+      padding: 0;
+      margin: 0;
+      color: white;
+    }
+
+    .bg1 {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transform-style: preserve-3d;
+    }
+
+    .bg1 h1 {
+      font-size: 58px;
+      font-weight: 500;
+      padding: 10px;
+      margin-top: -70px;
+      letter-spacing: 3px;
+      z-index: 1;
+    }
+
+    .bg1 p {
+      color: #e5e5e5;
+      font-size: 20px;
+      z-index: 1;
+    }
+
+    .bg1 .btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 410px;
+      height: 60px;
+      border-radius: 400px;
+      margin: 30px 0;
+      z-index: 1;
+    }
+
+    .bg1 .btn a {
+      display: block;
+      width: 180px;
+      height: 100%;
+      margin: 0 10px;
+      border-radius: 150px;
+      background-color: #0000007d;
+      box-sizing: border-box;
+      border: 1px solid white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    .bg1 .btn a:last-child {
+      position: relative;
+      background-color: white;
+      color: #000;
+      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.221);
+    }
+
+    .bg1 .btn a:last-child::after {
+      content: 'NEW';
+      position: absolute;
+      background-color: #ff4545;
+      color: rgb(255, 247, 247);
+      font-size: 12px;
+      padding: 3px 6px;
+      right: -8px;
+      border-radius: 2px;
+      border-top-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      top: -10px;
+    }
+
+    .bg1 .btn a>span {
+      display: inline-block;
+      font-size: 22px;
+      vertical-align: middle;
+      margin: 0;
+      padding: 0;
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    .bg1 .btn a>i {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-image: url('./image/win.png');
+      background-repeat: no-repeat;
+      background-size: 20px;
+      background-position: center;
+      margin-right: 8px;
+    }
+
+    .xq1 {
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url('./image/星球min.png');
+      left: 20%;
+      top: 23%;
+      z-index: 0;
+      animation: xq1 10s infinite linear;
+    }
+
+    @keyframes xq1 {
+      0% {
+        top: 23%;
+      }
+
+      50% {
+        top: 18%;
+      }
+
+      100% {
+        top: 23%;
+      }
+    }
+
+    .xq2 {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url('./image/星球1.png');
+      left: 65%;
+      top: 50%;
+      z-index: 0;
+      animation: xq2 10s infinite linear;
+    }
+
+    @keyframes xq2 {
+      0% {
+        top: 47%;
+      }
+
+      50% {
+        top: 50%;
+      }
+
+      100% {
+        top: 47%;
+      }
+    }
+
+    .tk {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url('./image/宇宙.png');
+      left: 63%;
+      top: 43%;
+      z-index: 0;
+      animation: tk 20s infinite linear;
+      transform: rotate(-23deg);
+    }
+
+    @keyframes tk {
+      0% {
+        top: 45%;
+        transform: rotate(-23deg);
+      }
+
+      50% {
+        transform: rotate(0deg);
+      }
+
+      80% {
+        top: 40%;
+      }
+
+      100% {
+        top: 45%;
+        transform: rotate(-23deg);
+      }
+    }
+
+    .bg1 .xx {
+      position: absolute;
+      background-color: white;
+      z-index: -1;
+      box-shadow: 0 0 30px 10px white;
+      border-radius: 50%;
+      box-sizing: border-box;
+      opacity: 0;
+    }
+
+    @keyframes xx {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(0.2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(0);
+        opacity: 1;
+      }
+    }
+
+    .bg2 .wrap {
+      position: absolute;
+      left: 15%;
+      width: 500px;
+      height: 100vh;
+      color: white;
+      z-index: 10;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: xs .5s 1 forwards ease-in;
+    }
+
+    .bg2 .wrap h1 {
+      font-size: 60px;
+      font-weight: 500;
+
+    }
+
+    .bg2 .wrap div {
+      width: 30px;
+      height: 4px;
+      background-color: #e5e5e560;
+      margin: 28px 0px 20px 0;
+    }
+
+    .bg2 .wrap h2 {
+      font-size: 36px;
+      font-weight: 500;
+    }
+
+    .bg2 .wrap h2 span {
+      font-size: 40px;
+    }
+
+    .bg2 .wrap h5 {
+      color: aliceblue;
+      font-weight: 500;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .bg2 .wrap i {
+      display: block;
+      width: 200px;
+      height: 60px;
+      border-radius: 300px;
+      background-image: url('./image/立即体验.png');
+      background-size: cover 60px;
+      background-position: 0;
+      background-repeat: no-repeat;
+      margin: 40px 0;
+    }
+
+    .bg2 .wrap i:hover {
+      background-position: 100%;
+    }
+
+    .bg2 .wrap.active {
+      transform: all 1s;
+      animation: bg2 1s .5s 1 both ease-in;
+      opacity: 1;
+    }
+
+    @keyframes xs {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes bg2 {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    footer {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20vh;
+      background-color: #131416;
+      font-size: 13px;
+    }
+
+    footer>p {
+      color: #4a4a4a;
+      line-height: 24px;
+    }
+
+    footer>p>i {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-image: url('./image/标徽.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      vertical-align: top;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+
+<body onselectstart="return false">
+  <div class="fxd">
+    <div class="logo"></div>
+    <div class="wrap">
+      <a href="#">论坛</a><a href="#">扩展</a><a href="#">Mac版</a>
+    </div>
+  </div>
+  <!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="bg1">
+          <!-- 星球 -->
+          <div class="xq1"></div>
+          <div class="xq2"></div>
+          <div class="tk"></div>
+
+          <h1>畅快浏览 极致体验</h1>
+          <p>全新Chrome内核浏览器，性能更强，速度更快</p>
+          <div class="btn">
+            <a href="#"><span>32</span>位版本</a>
+            <a href="#"><i class="win"></i><span>64</span>位版本</a>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg2">
+          <div class="wrap">
+            <h1>极速</h1>
+            <div></div>
+            <h2>全新<span>Chromium</span>内核</h2>
+            <h5>性能强劲，快如闪电。</h5>
+            <i></i>
+          </div>
+          <video autoplay defaultMuted="true" loop src="./vidio/星球.mp4"></video>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg2">
+          <div class="wrap">
+            <h1>极酷</h1>
+            <div></div>
+            <h2>暗夜炫黑模式</h2>
+            <h5>定义酷，定义你。</h5>
+            <i></i>
+          </div>
+          <video autoplay defaultMuted="true" loop src="./vidio/极光.mp4"></video>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg2">
+          <div class="wrap">
+            <h1>极安全</h1>
+            <div></div>
+            <h2><span>DNS</span>加密防劫持</h2>
+            <h5>安全升级，肆意无忌。</h5>
+            <i></i>
+          </div>
+          <video autoplay defaultMuted="true" loop src="./vidio/圣光.mp4"></video>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg2">
+          <div class="wrap">
+            <h1>极视界</h1>
+            <div></div>
+            <h2><span>4K</span>高清视频播放</h2>
+            <h5>还原真实之美，尽显万物本色。</h5>
+            <i></i>
+          </div>
+          <video style="width: 93%;" autoplay defaultMuted="true" loop src="./vidio/电脑.mp4"></video>
+          <footer>
+            <p> Copyright © 2005-2022 360.CN All Rights Reserved 360互联网安全中心 隐私政策 京ICP证080047号[京ICP备08010314号-6]
+            </p>
+            <p>网站举报电话：4006693600 举报邮箱：kefu@360.cn 互联网违法和不良信息举报中心： https://www.12377.cn</p>
+            <p> <i></i> 京公网安备 11000002000006号
+            </p>
+          </footer>
+        </div>
+      </div>
+
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="./swiper/swiper-bundle.min.js"></script>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Initialize Swiper -->
+  <script>
+    var id;
+
+    var swiper = new Swiper(".mySwiper", {
+      direction: "vertical",
+      speed: 1000,
+      mousewheel: {
+        thresholdTime: 1000,
+      },
+      slidesPerView: 1,
+      spaceBetween: 0,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      on: {
+        sliderMove: function () {
+          clearTimeout(id)
+          id = setTimeout(() => {
+            for (let index = 0; index < $('.wrap').length; index++) {
+              $('.wrap').eq(index).removeClass('active');
+            }
+            if (swiper.realIndex !== 0) {
+              $('.wrap').eq(swiper.realIndex).addClass('active')
+            }
+          }, 100)
+        },
+      },
+    });
+
+
+    $('.swiper-pagination').children().mouseenter(function () {
+      $(this).click()
+      for (let index = 0; index < $('.wrap').length; index++) {
+        $('.wrap').eq(index).removeClass('active');
+      }
+      if (swiper.realIndex !== 0) {
+        $('.wrap').eq(swiper.realIndex).addClass('active')
+      }
+    })
+
+    var id;
+    window.onmousewheel = function (params) {
+      for (let index = 0; index < $('.wrap').length; index++) {
+        $('.wrap').eq(index).removeClass('active');
+      }
+      if (swiper.realIndex !== 0) {
+        $('.wrap').eq(swiper.realIndex).addClass('active')
+      }
+    }
+
+    $('.swiper').mousedown(function (params) {
+      console.log(123);
+
+    })
+
+    function xx() {
+      var a = document.createElement('div')
+      var num = parseInt(Math.random() * 8 + 2);
+      a.className = 'xx'
+      $(a).css({
+        width: num,
+        height: num,
+        left: 100 + Math.random() * window.innerWidth + 'px',
+        top: 100 + Math.random() * window.innerHeight + 'px',
+        animation: 'xx 20s ' + Math.random() * 20 + 's infinite linear'
+      })
+      $('.bg1').append(a)
+    }
+
+    for (let index = 0; index < 30; index++) {
+      xx()
+    }
+
+
+
+  </script>
+</body>
+
+</html>
