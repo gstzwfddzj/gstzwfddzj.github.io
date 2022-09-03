@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>省市区</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    ul.xyz {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        width: 100vw;
+        height: 100vh;
+        overflow-y: auto;
+        /* width: 100px; */
+    }
+
+    ul.xyz>li {
+        /* 省 */
+        width: 100px;
+        height: 50px;
+        position: relative;
+        background-color: lightblue;
+    }
+
+    ul.xyz>li>div {
+        /* 市 父级*/
+        position: absolute;
+        top: 0;
+        left: 100%;
+        list-style: none;
+        height: 100vh;
+    }
+
+    ul.xyz>li>div>ul {
+        width: 100%;
+        height: 50px;
+    }
+
+    ul.xyz>li>div>ul>li {
+        /* 区 父级 */
+        position: absolute;
+        height: 100vh;
+        top: 0;
+        left: 100%;
+        width: 300px;
+        color: lightcoral;
+    }
+
+    ul.xyz>li>div>ul>li>ul {
+        /* 区 */
+        width: 100%;
+        height: 50px;
+    }
+</style>
+
+<body>
+    <ul class="xyz"></ul>
+    <script>
+        // var xyz = [
+        //     {
+        //         id: '11',
+        //         name: '北京市',
+        //         child: [
+        //             {
+        //                 id: '1101',
+        //                 name: '直辖区',
+        //                 child: [
+        //                     { id: '110101', name: '怀柔区' },
+        //                     { id: '110102', name: '平谷区' },
+        //                 ]
+        //             },
+        //             {
+        //                 id: '1101',
+        //                 name: '直辖区',
+        //                 child: [
+        //                     { id: '110101', name: '怀柔区' },
+        //                     { id: '110102', name: '平谷区' },
+        //                 ]
+        //             }
+        //         ]
+        //     },
+        //     {
+        //         id: '12',
+        //         name: 'xx省',
+        //         child: [
+        //             {
+        //                 id: '1201',
+        //                 name: 'xxx区',
+        //                 child: [
+        //                     { id: '120101', name: 'xx区' },
+        //                     { id: '120102', name: 'xx区' },
+        //                 ]
+        //             },
+        //             {
+        //                 id: '1202',
+        //                 name: 'xxx区',
+        //                 child: [
+        //                     { id: '120201', name: 'xx区' },
+        //                     { id: '120202', name: 'xx区' },
+        //                 ]
+        //             }
+        //         ]
+        //     },
+        // ]
+
+        var xyz = []
+
+        $.get('./prov-county.json', function (data) {
+            // 排序
+            data.sort((a, b) => { return parseInt(a) - parseInt(b) });
+            // 遍历 添加到新的数组
+            data.forEach(e => {
+                //三种方法 
+
+                // 正则
+                // var reg2 = /\d\d/gi
+                // var reg = /[^\:]+/gmi
+                // console.log(e.match(reg2));
+
+                // 分数组
+                // console.log(e.split(':'));
+
+                // 找下标
+                // var index = e.indexOf(':');
+                // console.log(e.slice(0,index),e.slice(index+1));
+
+
+
+                // 正则方法
+                // 把数字分为 每两个为一个数组
+                var reg2 = /\d\d/gi
+                // 把id 与 名字 分为数组
+                var reg = /[^\:]+/gmi
+
+                // 把数字分为 每两个为一个数组 赋值给len
+                var len = e.match(reg2)
+
+                // 把id 与 名字 分为数组 赋值给 data
+                var data = e.match(reg)
+
+                //  查找 里面的下标 不存在返回-1  存在 返回对应所有值
+                var i = xyz.findIndex((e) => { return e.id == len[0] })
+
+                // 判断是否 存在 ， 不存在添加 ，存在就追加
+                if (i == -1) {
+                    // 不存在
+                    xyz.push({
+                        id: len[0],
+                        name: data[1],
+                        child: []
+                    })
+                } else {
+                    // 存在 ， 下一步查看是 这个e 拿到的是  区  还是  市  ，由于什么排序了 ， 所有 这里拿到 2的就一定还没有创建 市 对象
+                    // console.log(len.length, i);
+                    if (len.length == 2) {
+                        // 是市 直接添加 因为一开始排序了 顺序，所有一定是添加 市后再添加 区
+                        xyz[i].child.push({
+                            id: data[0],
+                            name: data[1],
+                            child: []
+                        })
+                    } else {
+                        //  是 区的 要找到对应的市
+                        var yi = xyz[i].child.findIndex((ee) => { return ee.id == len[0] + len[1] })
+                        // 拿到对应市的下标  在市的下面的child 添加 数据
+                        xyz[i].child[yi].child.push({
+                            id: data[0],
+                            name: data[1]
+                        })
+                    }
+                }
+            });
+
+            console.log(xyz);
+            xyz.forEach((e, i) => {
+                var xxx = document.createElement('li');
+                xxx.innerText = e.name
+                var xxxdiv = document.createElement('div')
+                $(xxx).append(xxxdiv)
+                e.child.forEach((ee) => {
+                    var yyy = document.createElement('ul')
+                    yyy.innerText = ee.name
+                    $(xxxdiv).append(yyy)
+
+                    var yyyli = document.createElement('li')
+                    $(yyy).append(yyyli)
+
+                    ee.child.forEach((eee) => {
+                        var zzz = document.createElement('ul')
+                        zzz.innerText = eee.name
+                        $(yyyli).append(zzz)
+                    })
+                })
+                $('.xyz').append(xxx)
+            })
+
+        })
+
+
+
+    </script>
+</body>
+
+</html>

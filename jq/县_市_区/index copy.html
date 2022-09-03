@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>省市区</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+    }
+    ul.xyz {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        width: 200px;
+        height: 100vh;
+        /* overflow-x: hidden; */
+        overflow-y: auto;
+    }
+    ul.xyz::-webkit-scrollbar {
+        width: 0px;
+    }
+    ul.xyz::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #13a2b7;
+    }
+    ul.xyz::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #ffffff;
+    }
+    li,
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        line-height: 50px;
+        text-align: center;
+    }
+    ul.xyz>li {
+        /* 省 */
+        width: 200px;
+        height: 50px;
+        position: relative;
+        background-color: rgb(226, 240, 244);
+        box-sizing: border-box;
+        border-bottom: 1px solid rgb(0, 0, 0);
+        color: rgb(58, 137, 58);
+    }
+    ul.xyz>li>div {
+        /* 市 父级*/
+        position: fixed;
+        top: 0;
+        left: 200px;
+        list-style: none;
+        height: 100vh;
+        width: 500px;
+        line-height: 50px;
+        text-align: left;
+        display: none;
+        overflow-y: auto;
+    }
+    ul.xyz>li>div::-webkit-scrollbar {
+        width: 2px;
+        height: 1px;
+    }
+    ul.xyz>li>div::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #027d93;
+    }
+    ul.xyz>li>div::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #ffe2e2;
+    }
+    ul.xyz>li>div>ul {
+        width: 200px;
+        height: 50px;
+        border-bottom: 1px solid rgb(0, 0, 0);
+        box-sizing: border-box;
+        background-color: #f0f4f5;
+    }
+    ul.xyz>li>div>ul>li {
+        /* 区 父级 */
+        position: fixed;
+        height: 100vh;
+        top: 0;
+        left: 400px;
+        width: 300px;
+        color: lightcoral;
+        overflow-y: auto;
+        display: none;
+    }
+    ul.xyz>li>div>ul>li::-webkit-scrollbar {
+        width: 2px;
+        height: 1px;
+    }
+    ul.xyz>li>div>ul>li::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #13a2b7;
+    }
+    ul.xyz>li>div>ul>li::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #ffe2e2;
+        /* background-color: #ffffff; */
+    }
+    ul.xyz>li>div>ul>li>ul {
+        /* 区 */
+        width: 300px;
+        height: 50px;
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        box-sizing: border-box;
+        border-radius: 4px;
+    }
+    ul.xyz>li>div.active {
+        display: block;
+        color: #13a2b7;
+    }
+
+    ul.xyz>li>div.active>ul>li.active {
+        display: block;
+        color: rgb(38, 88, 164);
+    }
+    .aa{
+        background-color: rgb(173, 230, 181)!important;
+    }
+</style>
+
+<body onselectstart="return false">
+    <ul class="xyz"></ul>
+    <script>
+        var xyz = []
+        $.get('./prov-county.json', function (data) {
+            data.sort((a, b) => { return parseInt(a) - parseInt(b) });
+            data.forEach(e => {
+                var reg2 = /\d\d/gi
+                var reg = /[^\:]+/gmi
+                var len = e.match(reg2)
+                var data = e.match(reg)
+                var i = xyz.findIndex((e) => { return e.id == len[0] })
+                if (i == -1) {
+                    xyz.push({
+                        id: len[0],
+                        name: data[1],
+                        child: []
+                    })
+                } else {
+                    if (len.length == 2) {
+                        xyz[i].child.push({
+                            id: data[0],
+                            name: data[1],
+                            child: []
+                        })
+                    } else {
+                        var yi = xyz[i].child.findIndex((ee) => { return ee.id == len[0] + len[1] })
+                        xyz[i].child[yi].child.push({
+                            id: data[0],
+                            name: data[1]
+                        })
+                    }
+                }
+            });
+            console.log(xyz);
+            xyz.forEach((e, i) => {
+                var xxx = document.createElement('li');
+                xxx.innerText = e.name
+                var xxxdiv = document.createElement('div')
+                $(xxx).append(xxxdiv)
+                e.child.forEach((ee) => {
+                    var yyy = document.createElement('ul')
+                    yyy.innerText = ee.name
+                    $(xxxdiv).append(yyy)
+
+                    var yyyli = document.createElement('li')
+                    $(yyy).append(yyyli)
+
+                    ee.child.forEach((eee) => {
+                        var zzz = document.createElement('ul')
+                        zzz.innerText = eee.name
+                        $(yyyli).append(zzz)
+                    })
+                })
+                $('.xyz').append(xxx)
+            })
+        })
+        $('.xyz').click(function () {
+            if($(event.target).attr('class')!=='active'){
+                $(this).children().each((i,e)=>{if(e.isSameNode(event.target)){$('.aa').removeClass('aa');}})
+                $(event.target).addClass('aa').siblings().removeClass('aa').find('.aa').removeClass('aa')
+            }
+            $(this).children().each((i,e)=>{if(e.isSameNode(event.target)){$('.active').removeClass('active');}})
+            $(event.target).children().filter('div').addClass('active')
+            $(event.target).siblings().children().filter('div').removeClass('active')
+            $(event.target).children().filter('li').addClass('active')
+            $(event.target).siblings().children().filter('li').removeClass('active')
+        })
+
+    </script>
+</body>
+
+</html>
