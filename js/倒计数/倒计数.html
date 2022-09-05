@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计数</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrapTime {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 252, 252, 0.998)
+        }
+
+        ul {
+            width: 100%;
+            display: flex;
+            padding: 0;
+            list-style: none;
+            justify-content: space-evenly;
+            text-align: center;
+        }
+
+        span {
+            color: lightcoral;
+        }
+
+        li {
+            width: 15%;
+            padding: 7% 0;
+            background-color: lightblue;
+            line-height: 7%;
+            font-size: calc(7% + 4em);
+            color: rgb(255, 255, 255);
+            border-radius: 10px;
+        }
+
+        p {
+            position: fixed;
+            font-size: 50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-family: '楷体';
+            color: lightcoral;
+        }
+
+        p span {
+            border: 1px solid lightcoral;
+            cursor: pointer;
+        }
+
+        p span:active {
+            background-color: rgb(232, 232, 232);
+        }
+
+        .tanchuan {
+            position: absolute;
+            top: 130px;
+            width: 400px;
+            height: 200px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            display: flex;
+            justify-content: space-evenly;
+            visibility: hidden;
+        }
+
+        .tanchuan input {
+            width: 200px;
+            height: 50px;
+            border: 1px solid lightcoral;
+            color: lightcoral;
+            border-radius: 5px;
+            padding: 0 10px;
+            outline: none;
+        }
+
+        .tanchuan input[type="datetime-local" i] {
+            border-radius: 7px;
+            color: lightcoral;
+            width: 200px;
+            height: 50px;
+            border: 1px solid lightcoral;
+        }
+
+        .tanchuan input::placeholder {
+            color: lightcoral;
+        }
+
+        .tanchuan button {
+            /* visibility: hidden; */
+            width: 100px;
+            height: 52px;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid lightcoral;
+            border-radius: 5px;
+            font-family: '楷体';
+            font-size: 26px;
+            color: lightcoral;
+        }
+    </style>
+</head>
+
+<body onselectstart="return false">
+    <p> <span>倒计时</span></p>
+    <div class="wrapTime">
+        <ul>
+            <li>00</li><span>天</span>
+            <li>00</li><span>时</span>
+            <li>00</li><span>分</span>
+            <li>00</li><span>秒</span>
+        </ul>
+    </div>
+    <div class="tanchuan">
+        <input type="text" placeholder="输入你要倒计时的事件">
+        <input type="datetime-local">
+        <button>确定</button>
+    </div>
+    <script>
+        var liDom = document.getElementsByClassName('wrapTime')[0].getElementsByTagName('li')
+        var tan = document.getElementsByClassName('tanchuan')[0]
+        var timeInput = document.getElementsByClassName('tanchuan')[0].getElementsByTagName('input')
+        var btn = document.getElementsByClassName('tanchuan')[0].getElementsByTagName('button')[0]
+        var bt = document.body.getElementsByTagName('p')[0].getElementsByTagName('span')[0]
+        var is = true;
+        bt.onclick = function (params) {
+            if (is) {
+                is = false;
+                tan.style.visibility = 'visible';
+                timeInput[0].value = ''
+            } else {
+                is = true;
+                tan.style.visibility = 'hidden';
+            }
+        }
+        var timeD;
+
+        btn.onclick = function (params) {
+            timeD ? clearInterval(timeD) : ''
+            bt.innerText = timeInput[0].value + ' 倒计时';
+            var updata = (new Date(timeInput[1].value).getTime() - 700);
+            timeD = setInterval(() => {
+                var xz = new Date().getTime()
+                var cha = (updata - xz) / 1000;
+                if (cha >= 0) {
+                    console.log(cha)
+                    liDom[0].innerText = parseInt(cha / 3600 / 24) < 10 ? '0' + parseInt(cha / 3600 / 24) : parseInt(cha / 3600 / 24);
+                    liDom[1].innerText = parseInt(cha / 3600) % 24 < 10 ? '0' + parseInt(cha / 3600) % 24 : parseInt(cha / 3600) % 24;
+                    liDom[2].innerText = parseInt(cha / 60) % 60 < 10 ? '0' + parseInt(cha / 60) % 60 : parseInt(cha / 60) % 60;
+                    liDom[3].innerText = parseInt(cha % 60) < 10 ? '0' + parseInt(cha % 60) : parseInt(cha % 60);
+                } else if(cha<0){
+                    console.log(parseInt(cha / 3600 / 24))
+                    alert('时间到了')
+                    for (let i = 0; i < 4; i++) {
+                    liDom[i].innerText = '00'
+                    }
+                    clearInterval(timeD)
+                }
+            }, 100)
+            timeInput[0].value = ''
+            is = true;
+            tan.style.visibility = 'hidden';
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倍数放大镜</title>
+    <style>
+        .magnifyingGlass {
+            /* width: 300px;
+        margin: auto; */
+        }
+
+        .magnifyingGlass .magnifyingGlass_img {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            float: left;
+        }
+
+        .magnifyingGlass .magnifyingGlass_img img {
+            width: 100%;
+        }
+
+        .magnifyingGlass .magnifyingGlass_img .mak {
+            position: absolute;
+            background-color: rgba(0, 0, 255, .4);
+            top: 0;
+            left: 0;
+        }
+
+        .magnifyingGlass .magnifyingGlass_zoom {
+            width: 500px;
+            height: 500px;
+            background-color: lightblue;
+            background-image: url('./api/image/1.jpg');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="magnifyingGlass">
+        <div class="magnifyingGlass_img">
+            <img src="./api/image/1.jpg" alt="">
+            <div class="mak"></div>
+        </div>
+        <div class="magnifyingGlass_zoom"></div>
+    </div>
+
+    <script>
+        mGlass(10)
+        function mGlass(params) {
+            var beishu = params;
+            var mgi = document.querySelector('.magnifyingGlass .magnifyingGlass_img')
+            var mak = mgi.querySelector('.mak')
+            var zoom = document.querySelector('.magnifyingGlass .magnifyingGlass_zoom')
+            mak.style.width = mgi.clientWidth / beishu + 'px';
+            mak.style.height = mgi.clientHeight / beishu + 'px';
+            zoom.style.backgroundSize = beishu * 100 + '%';
+            mgi.onmousemove = function () {
+                var x = event.pageX - mgi.offsetLeft;
+                var y = event.pageY - mgi.offsetTop;
+                var mx = x - (mak.clientWidth / 2);
+                var my = y - (mak.clientHeight / 2);
+                if (mx < 0) {
+                    mx = 0
+                } else if (x > mgi.clientWidth - mak.clientWidth / 2) {
+                    mx = mgi.clientWidth - mak.clientWidth
+                }
+                if (my < 0) {
+                    my = 0
+                } else if (my > mgi.clientHeight - mak.clientHeight) {
+                    my = mgi.clientHeight - mak.clientHeight
+                }
+                mak.style.left = mx + 'px'
+                mak.style.top = my + 'px'
+                var zx = (zoom.clientWidth / mak.clientWidth) * mx;
+                var zy = (zoom.clientHeight / mak.clientHeight) * my;
+                zoom.style.backgroundPosition = - zx + 'px' + ' ' + - zy + 'px'
+                // zoom.style.backgroundPosition = - (zoom.clientWidth / mak.clientWidth) * mx + 'px' + ' ' + - (zoom.clientHeight / mak.clientHeight) * my + 'px'
+                // zoom.style.backgroundPositionX = -zx + 'px'
+                // zoom.style.backgroundPositionY = -zy + 'px'
+                // console.log(-(zoom.clientWidth/mak.clientWidth)*mx+'px' +' '+ -(zoom.clientHeight/mak.clientHeight)*my+'px;')
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url('./image/t1.png') ;
+            display: flex;
+            height: 100vh;
+            position: relative;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            filter:2px;
+            background-color: rgba(57, 57, 57, 0.158);
+            z-index: -1;
+        }
+
+        .wrap {
+            display: table;
+            margin: auto;
+            font-size: 0;
+        }
+
+        ul {
+            position: relative;
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            width: 100px;
+            float: left;
+            overflow: hidden;
+            transition: all 0.5s;
+            border-radius: 10px;
+        }
+
+        li:first-child {
+            width: 543px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul>
+            <li><img src="./image/t1.png" alt=""></li>
+            <li><img src="./image/t2.png" alt=""></li>
+            <li><img src="./image/t3.png" alt=""></li>
+            <li><img src="./image/t4.png" alt=""></li>
+        </ul>
+    </div>
+
+    <script crossorigin="anonymous"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        var li = document.getElementsByTagName('li')
+        function sfq(i) {
+            li[i].onclick = function (params) {
+                for (var j = 0; j < li.length; j++) {
+                    li[j].style.width = '100px'
+                }
+                li[i].style.width = '543px'
+                document.body.style.backgroundImage = "url('./image/t" + (i + 1) + ".png')"
+            }
+        }
+
+        for (var i = 0; i < li.length; i++) {
+            sfq(i);
+        }
+    </script>
+</body>
+
+</html>

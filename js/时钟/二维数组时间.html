@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维数组时间</title>
+</head>
+<style>
+    .num {
+        display: flex;
+        flex-wrap: wrap;
+        width: 150px;
+    }
+
+    .num i {
+        width: 30%;
+        /* background-color: lightblue; */
+        height: 50px;
+        outline: 1px solid black;
+    }
+
+    .num i.active {
+        background-color: lightblue;
+        background-color: white;
+    }
+    body{
+        display: flex;
+        background-color: rgb(0, 0, 0);
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>
+
+<body>
+    <div class="num">
+    </div>
+    <div class="num">
+    </div>
+    :
+    <div class="num">
+    </div>
+    <div class="num">
+    </div>
+    :
+    <div class="num">
+    </div>
+    <div class="num">
+    </div>
+    <script>
+        var nums = [
+            [
+                [1, 1, 1],
+                [1, 0, 1],
+                [1, 0, 1],
+                [1, 0, 1],
+                [1, 1, 1]
+            ],
+            [
+                [0, 0, 1],
+                [0, 0, 1],
+                [0, 0, 1],
+                [0, 0, 1],
+                [0, 0, 1]
+            ],
+            [
+                [1, 1, 1],
+                [0, 0, 1],
+                [1, 1, 1],
+                [1, 0, 0],
+                [1, 1, 1],
+            ],
+            [
+                [1, 1, 1],
+                [0, 0, 1],
+                [1, 1, 1],
+                [0, 0, 1],
+                [1, 1, 1],
+            ],
+            [
+                [1, 0, 1],
+                [1, 0, 1],
+                [1, 1, 1],
+                [0, 0, 1],
+                [0, 0, 1],
+            ],
+            [
+                [1, 1, 1],
+                [1, 0, 0],
+                [1, 1, 1],
+                [0, 0, 1],
+                [1, 1, 1],
+            ],
+            [
+                [1, 1, 1],
+                [1, 0, 0],
+                [1, 1, 1],
+                [1, 0, 1],
+                [1, 1, 1],
+            ],
+            [
+                [1, 1, 1],
+                [0, 0, 1],
+                [0, 0, 1],
+                [0, 0, 1],
+                [0, 0, 1],
+            ],
+            [
+                [1, 1, 1],
+                [1, 0, 1],
+                [1, 1, 1],
+                [1, 0, 1],
+                [1, 1, 1],
+            ],
+            [
+                [1, 1, 1],
+                [1, 0, 1],
+                [1, 1, 1],
+                [0, 0, 1],
+                [1, 1, 1],
+            ]
+        ]
+
+        var numDOM = document.querySelectorAll('.num')
+
+        function createI(number) {
+            var indexI = number;
+            nums[0].forEach((row, ri) => {
+                row.forEach((col, ci) => {
+                    var i = document.createElement('i');
+                    if (col) {
+                        i.className = 'active';
+                    }
+                    numDOM[indexI].appendChild(i);
+                })
+            })
+        }
+
+        function timeCut(elementI,x) {
+            nums[x].forEach((row, ri) => {
+                row.forEach((col, ci) => {
+                    var iDOM = numDOM[elementI].getElementsByTagName('i')
+                    if (col) {
+                        iDOM[ri * 3 + ci].className = 'active'
+                    } else {
+                        iDOM[ri * 3 + ci].className = ''
+                    }
+                })
+            })
+        }
+
+        numDOM.forEach((e,i) => {
+            createI(i);
+        });
+
+
+
+        setInterval(()=>{
+        var hh =  String(new Date().getHours()).padStart(2, '0');
+        var mm =  String(new Date().getMinutes()).padStart(2, '0');
+        var ss =  String(new Date().getSeconds()).padStart(2, '0');
+            numDOM.forEach((e,i)=>{
+                timeCut(i,(hh+mm+ss)[i]);
+            })
+        },1000)
+
+
+    </script>
+</body>
+
+</html>

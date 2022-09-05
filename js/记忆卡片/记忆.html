@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记忆</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .jy {
+            width: 500px;
+            height: 500px;
+            background-color: lightblue;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .jy li {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            background-color: lightcoral;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: lightcoral;
+        }
+
+        .jy li.active {
+            color: lightgreen!important;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jy"></div>
+    <script>
+        var box = document.querySelector('.jy')
+
+        var nums = ['fa-audio-description', 'fa-cogs', 'fa-cog ', 'fa-credit-card-alt', 'fa-credit-card', 'fa-cubes', 'fa-diamond', 'fa-question']
+        var nums = nums.concat(nums);
+        nums.sort((e, ee) => {
+            return Math.random() - 0.5;
+        })
+        for (let i = 0; i < nums.length; i++) {
+            var li = document.createElement('li');
+            li.innerHTML = '<i class="fa ' + nums[i] + '"></i>'
+            box.appendChild(li);
+        }
+
+        var li = box.querySelectorAll('li')
+        var dc = [];
+        for (var i = 0; i < li.length; i++) {
+            li[i].onclick = function () {
+                console.log(dc,this.className)
+                if (this.className != 'active' && (dc.length==0? true :(!dc[0].isSameNode(this)))) {
+                    console.log('ok')
+                    this.style.color = '#fff'
+                    dc.push(this);
+                    if (dc.length == 2) {
+                        if (dc[0].isEqualNode(dc[1])) {
+                            console.log('ok')
+                            dc[0].className = 'active'
+                            dc[1].className = 'active'
+                        } else {
+                            console.log('哦偶点错啦')
+                            setTimeout(function(){
+                                dc[0].style.color = 'lightcoral'
+                                dc[1].style.color = 'lightcoral'
+                            },500);
+                        }
+                        setTimeout(()=>{
+                            dc = [];
+                        },500)
+                    }
+                }
+
+            }
+        }
+
+    </script>
+</body>
+
+</html>

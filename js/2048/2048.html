@@ -16,7 +16,9 @@
             height: 100vh;
             background-image: url('./image/2048a.jpg');
             width: 100vw;
-
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
         }
 
         h1 {
@@ -116,6 +118,20 @@
         button:last-child {
             top: 140px;
         }
+
+        .tishi {
+            position: fixed;
+            top: 0;
+            color: rgb(56, 151, 48);
+            width: 200px;
+            height: 50px;
+            background-color: rgb(255, 255, 255);
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            opacity: 1;
+            transition: all 2s linear;
+        }
     </style>
 </head>
 
@@ -131,7 +147,12 @@
 
         </ul>
     </div>
+    <div class="tishi">
+        操作：按键盘 ← ↑ → ↓
+    </div>
     <script>
+        var aaaa = 0;
+
         var ulDOM = document.querySelector('ul')
         var score = 0;
         var raw = [];
@@ -168,10 +189,10 @@
                 var number2 = 0;
                 if (score > 8000) {
                     var suijishu = [2];
-                    for (let index = 2; index <=  Number(String(score/4).slice(0,1)); index++) {
-                        suijishu.push(Math.pow(2,index))
+                    for (let index = 2; index <= Number(String(score / 4).slice(0, 1)); index++) {
+                        suijishu.push(Math.pow(2, index))
                     }
-                    var rd = suijishu[parseInt(Math.random() * 10) % (Number(String(score/4).slice(0,1)))]
+                    var rd = suijishu[parseInt(Math.random() * 10) % (Number(String(score / 4).slice(0, 1)))]
                     console.log(suijishu)
                 } else {
                     var rd = 2
@@ -179,7 +200,7 @@
                 do {
                     number = Math.floor(Math.random() * 4)
                     number2 = Math.floor(Math.random() * 4)
-                } while (nums[number][number2] != 0 );
+                } while (nums[number][number2] != 0);
                 nums[number][number2] = rd;
                 document.querySelector('h1 span').innerText = score;
             } else {
@@ -219,7 +240,7 @@
                         for (let index = 0; index < e.length; index++) {
                             arr1.push(newa[index][ei]);
                         }
-                         arr1 = arr1.filter((e) => {
+                        arr1 = arr1.filter((e) => {
                             return e != 0;
                         })
                         let n = arr1.length;
@@ -242,7 +263,7 @@
                         for (let index = 0; index < e.length; index++) {
                             arr1.push(newa[index][ei]);
                         }
-                         arr1 = arr1.filter((e) => {
+                        arr1 = arr1.filter((e) => {
                             return e != 0;
                         })
                         let n = arr1.length;
@@ -262,7 +283,7 @@
                 console.log(new4)
                 if (String(new1) == String(new2) && String(new1) == String(new3) && String(new1) == String(new4)) {
                     document.querySelector('.xuankuan2048').style.visibility = 'visible'
-                    document.querySelector('.xuankuan2048 .score2').innerText = score +'分'
+                    document.querySelector('.xuankuan2048 .score2').innerText = score + '分'
 
                 }
             }
@@ -506,6 +527,12 @@
 
 
         document.body.onkeydown = function (e) {
+            if (aaaa === 0) {
+                aaaa++
+                setTimeout(() => {
+                    document.querySelector('.tishi').style.opacity = '0'
+                }, 1000)
+            }
             var e = e || window.event
             var ulDOM = document.querySelector('ul')
             raw = [];
