@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" style="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            flex-wrap: wrap;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        li {
+            width: calc(67px * 3);
+            height: calc(119.2px *3);
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+        }
+
+        li>img {
+            box-shadow: 0 0 10px 0 #ccc;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="margin: auto;text-align: center;">鼠标悬停查看详情</h1>
+    <script>
+        let name;
+        const xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                const a = xhr.responseText
+                if (a) {
+                    name = JSON.parse(a)
+                    name.sort((b, a) => {
+                        return parseInt(b) - parseInt(a)
+                    })
+                }
+            }
+        }
+        xhr.open('get', './imageName.txt', false)
+        xhr.send()
+
+        const ul = create('ul')
+
+        const detail = [
+            '首页，中午好招呼语根据时间变化而定',
+            '我的页面，登录都是逻辑，就不展示页面了',
+            '个人信息',
+            '修改头像',
+            '修改昵称，离焦提示修改名字',
+            '首页菜单',
+            '发表页面',
+            '限制条件',
+            '限制条件',
+            '字体不能超出100,到达一百描述变红',
+            '图片的添加,可以继续添加',
+            '最多九张,九张后没搞删除，需要重新选择',
+            'loading',
+            'success',
+            '刷新',
+            '重新成功',
+            '详情'
+        ]
+
+        name.forEach((e, i) => {
+            let li = create('li')
+            let img = create('img')
+            img.src = './image/' + e
+            img.title = detail[i]
+            add(li, img)
+            add(ul, li);
+        });
+
+        add(document.body, ul)
+
+        function create(string) {
+            return document.createElement(string);
+        }
+        function add(ul, li) {
+            return ul.appendChild(li);
+        }
+    </script>
+</body>
+
+</html>
