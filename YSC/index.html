@@ -37,7 +37,7 @@
 </head>
 
 <body>
-    <ul>
+    <!-- <ul>
         <li>
             <img src="./image/01.png" alt="">
         </li>
@@ -56,7 +56,49 @@
         <li>
             <img src="./image/详情.png" alt="">
         </li>
-    </ul>
+    </ul> -->
+    <h1 style="margin: auto;text-align: center;">鼠标悬停查看详情</h1>
+    <script>
+        let name;
+        const xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                const a = xhr.responseText
+                if (a) {
+                    name = JSON.parse(a)
+                    name.sort((b, a) => {
+                        return parseInt(b) - parseInt(a)
+                    })
+                }
+            }
+        }
+        xhr.open('get', './imageName.txt', false)
+        xhr.send()
+
+        const ul = create('ul')
+
+        const detail = name.map(e=>{
+            return e.slice(0,e.indexOf('.'))
+        })
+
+        name.forEach((e, i) => {
+            let li = create('li')
+            let img = create('img')
+            img.src = './image/' + e
+            img.title = detail[i]
+            add(li, img)
+            add(ul, li);
+        });
+
+        add(document.body, ul)
+
+        function create(string) {
+            return document.createElement(string);
+        }
+        function add(ul, li) {
+            return ul.appendChild(li);
+        }
+    </script>
 </body>
 
 </html>
