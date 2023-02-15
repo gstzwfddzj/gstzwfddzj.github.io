@@ -39,7 +39,7 @@ function mathTime() {
       chaju = mubiao - daoda,
       chufa;
     let shijianchuo = daoda - 1000 * (day1 * 24 * 3600 + hour1 * 60 * 60 + min1 * 60);
-    chuxing = new Date(shijianchuo) - Date.now();
+    chuxing = new Date(new Date(shijianchuo).toLocaleDateString()) - new Date(new Date().toLocaleDateString());
     chufa = new Date(shijianchuo) - Date.now();
     let ri = parseInt(chuxing / 1000 / 60 / 60 / 24);
     if (ri >= 0) {
@@ -60,8 +60,8 @@ function mathTime() {
     let s1 = p1.children[1];
     let s2 = p2.children[1];
     let s3 = p3.children[1];
-    let time2 = new Date(shijianchuo).toLocaleTimeString().split(':')
-    s1.innerText = chuxing + `\xa0\xa0`+ time2[0]+' 点 '+time2[1]+' 分 '+time2[2]+' 秒';
+    let time2 = new Date(shijianchuo).toLocaleTimeString().split(":");
+    s1.innerText = chuxing + `\xa0\xa0` + time2[0] + " 点 " + time2[1] + " 分 " + time2[2] + " 秒";
     s2.innerText = huangsuan(+chaju);
     s3.innerText = huangsuan(chufa);
   }
