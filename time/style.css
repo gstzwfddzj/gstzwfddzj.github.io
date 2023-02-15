@@ -1,0 +1,45 @@
+.time {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.time input,select {
+    width: 40px;
+    margin: 0 10px;
+    user-select: none;
+}
+
+h1{
+    font-size: 30px;
+    color: rgb(24, 141, 179);
+}
+h4{
+    font-size: 17px;
+    color: lightcoral;
+}
+h2{
+    color: #666;
+}
+
+.result{
+    width: 100%;
+}
+.result p{
+    font-size: 17px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.result p i{
+    width: 110px;
+    text-align: right;
+    color: lightcoral;
+}
+.result p span{
+    /* font-size: 20px; */
+    margin-left: 10px;
+    flex-shrink: 0;
+    display: inline-block;
+    text-decoration: double;
+}

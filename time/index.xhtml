@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>时间计算</title>
+</head>
+
+<body>
+    <header>
+        <h1>计算您的时间</h1>
+        <h4>放心设置，我们会保留记录，持续为您计时</h4>
+    </header>
+    <article>
+        <section>
+            <h2>面试时间</h2>
+            <input type="datetime-local" id="start" />
+        </section>
+        <section>
+            <h2>下车时间</h2>
+            <input type="datetime-local" id="front" />
+        </section>
+        <section class="time">
+            <h2>路程需要的时间</h2>
+            <input type="number" min="0" value="0" id="day" >0</input>天
+        </section>
+        <section class="result">
+            <h2>预计：</h2>
+            <p><i>出发时间：</i><span></span></p>
+            <p><i>下车后还有：</i><span></span></p>
+            <p><i>距离出发：</i><span></span></p>
+        </section>
+    </article>
+    <script src="./style.js"></script>
+</body>
+
+</html>
