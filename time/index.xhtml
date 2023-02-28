@@ -8,32 +8,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
-    <title>时间计算</title>
+    <meta name="keywords" content="面试路程时间计算记录所需时间" />
+    <title>面试路程时间计算</title>
 </head>
 
 <body>
     <header>
-        <h1>计算您的时间</h1>
+        <h1>计算您的路程时间</h1>
         <h4>放心设置，我们会保留记录，持续为您计时</h4>
     </header>
     <article>
         <section>
-            <h2>面试时间</h2>
+            <h2>面试时间 <code>即约定的时间</code></h2>
             <input type="datetime-local" id="start" />
         </section>
-        <section>
-            <h2>下车时间</h2>
-            <input type="datetime-local" id="front" />
+        <section class="before">
+            <h2>提前多少分钟到</h2>
+            <input style="display: none;" type="datetime-local" id="front" />
+            <input type="number" min="0" value="0" id="day2">0</input>天
         </section>
         <section class="time">
-            <h2>路程需要的时间</h2>
-            <input type="number" min="0" value="0" id="day" >0</input>天
+            <h2>路程所需时间</h2>
+            <input type="number" min="0" value="0" id="day">0</input>天
         </section>
         <section class="result">
             <h2>预计：</h2>
-            <p><i>上车时间：</i><span></span></p>
-            <p><i>下车后还有：</i><span></span></p>
-            <p><i>距离出发：</i><span></span></p>
+            <p><code>出发：</code> <span></span></p>
+            <p style="display: none;"><i>下车后还有：</i><span></span></p>
+            <p style="margin-top: 30px;"><code>距离出发：</code><span></span></p>
         </section>
     </article>
     <script src="./style.js"></script>
