@@ -14,12 +14,13 @@
 
 <body>
     <header>
-        <h1>计算您的路程时间</h1>
-        <h4>放心设置，我们会保留记录，持续为您计时</h4>
+        <h1>计算您的出发时间</h1>
+        <!-- <h4>放心设置，我们会保留记录，持续为您计时</h4> -->
+        <code>这是用来计算你 <strong>面试前什么时候出发</strong> 的网址，填上你的 <strong>面试时间</strong>  还有 <strong>路程</strong> 的时间 ，就能知道你 <strong>几点出发</strong> 啦</code>
     </header>
     <article>
         <section>
-            <h2>面试时间 <code>即约定的时间</code></h2>
+            <h2>面试时间</h2>
             <input type="datetime-local" id="start" />
         </section>
         <section class="before">
@@ -33,9 +34,9 @@
         </section>
         <section class="result">
             <h2>预计：</h2>
-            <p><code>出发：</code> <span></span></p>
+            <p><code>出发时间：</code> <span></span></p>
             <!-- <p style="display: none;"><i>下车后还有：</i><span></span></p> -->
-            <p style="margin-top: 30px;"><code>距离出发：</code><span></span></p>
+            <p><code>距离出发还有：</code><span></span></p>
         </section>
     </article>
     <script src="./style.js"></script>
