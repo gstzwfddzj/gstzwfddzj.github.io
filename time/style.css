@@ -37,14 +37,14 @@ section{
 
 h1 {
   font-size: 23px;
-  color: rgb(68, 168, 202);
+  color: #1695c0;
 }
 h4 {
   font-size: 17px;
   color: lightcoral;
 }
 h2 {
-  color: #666;
+  color: #343434;
   font-size: 20px;
 }
 
@@ -61,7 +61,7 @@ h2 {
 .result p code {
   width: 110px;
   text-align: right;
-  color: lightcoral;
+  color: #d32828;
   font-weight: 300;
   font-size: 15px;
 }
